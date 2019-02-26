@@ -23,3 +23,7 @@ markdown_extensions:
       permalink: true
   - pymdownx.tasklist:
       custom_checkbox: true
+
+extra_css:
+  - "css/custom.css"
+
