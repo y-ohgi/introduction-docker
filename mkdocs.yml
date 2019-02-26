@@ -3,8 +3,6 @@ site_name: Introduction Docker
 theme:
   name: 'material'
   language: 'ja'
-  feature:
-    tabs: true
   palette:
     primary: 'indigo'
     accent: 'indigo'
