@@ -1,4 +1,4 @@
-site_name: Introduction Docker
+site_name: '入門 Docker'
 
 theme:
   name: 'material'
@@ -9,14 +9,18 @@ theme:
   font:
     text: 'Roboto'
     code: 'Roboto Mono'
+  highlightjs: true
+  hljs_languages:
+    - yaml
+    - dockerfile
 
 extra:
   search:
     language: 'jp'
 
 markdown_extensions:
-  - admonition
-  - footnotes
+  - 'admonition'
+  - 'footnotes'
   - codehilite:
       guess_lang: false
   - toc:
@@ -25,7 +29,31 @@ markdown_extensions:
       custom_checkbox: true
 
 extra_css:
-  - "css/custom.css"
+  - "assets/custom.css"
 
-pages:
-  - About: index.md
+extra_javascript:
+  - 'assets/custom.js'
+
+nav:
+  - 'Home': 'index.md'
+  - 'はじめに':
+    - 'Dockerとは': 'index.md'
+    - 'VMとDockerの違い': 'index.md'
+    - 'Hello Docker !': 'index.md'
+  - 'コンポーネント':
+    - 'image': 'index.md'
+    - 'container': 'index.md'
+    - 'network': 'index.md'
+    - 'volume': 'index.md'
+  - 'プロダクションでの活用':
+    - 'オーケストレーションツール': 'index.md'
+    - '設計': 'index.md'
+    - 'ローカルでの活用': 'index.md' # Docker for Mac(Windows)
+    - 'イメージの仕組み': 'index.md'
+    - 'Dockerfile ベストプラクティス': 'index.md'
+    - 'セキュリティ': 'index.md'
+    - '導入': 'index.md'
+  - 'Tips'
+    - '動作確認': 'index.md' # diff, inspect, top...
+    - 'docker-compose': 'index.md'
+    - 'ECS': 'index.md'
