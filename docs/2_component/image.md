@@ -32,6 +32,8 @@ Status: Downloaded newer image for ubuntu:latest
 ```
 
 ### Ubuntu上でコマンドを動かす
+![docker run ubuntu](imgs/docker-run-ubuntu.png)
+
 `docker run` でImage上でコマンドを動かすことができます。
 
 先程取得したubuntuイメージ上でコマンドを実行して、Ubuntuが動いてることを確かめましょう。
