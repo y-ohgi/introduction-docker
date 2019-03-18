@@ -1,0 +1,7 @@
+- 復数のコンテナを協調して動かす
+    - Sidecarとして動かす
+    - XXX: Sidercar復数(Laravel,Nginx)とRDS, ElastiCacheの図
+- 1コンテナ = 1プロセス
+    - 復数プロセス走らせる場合は「1コンテナは1つの関心事」になっているかを確認する
+- micro service
+- 12factor

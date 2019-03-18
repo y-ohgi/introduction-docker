@@ -37,23 +37,23 @@ extra_javascript:
 nav:
   - 'Home': 'index.md'
   - 'はじめに':
-    - 'Dockerとは': 'index.md'
-    - 'VMとDockerの違い': 'index.md'
-    - 'Hello Docker !': 'index.md'
+    - 'Dockerとは': '1_introduction/docker.md'
+    - 'VMとDocker': '1_introduction/vm-docker.md'
+    - 'Hello Docker !': '1_introduction/hello-docker.md'
   - 'コンポーネント':
-    - 'image': 'index.md'
-    - 'container': 'index.md'
-    - 'network': 'index.md'
-    - 'volume': 'index.md'
+    - 'image': '2_component/image.md'
+    - 'dockerfile': '2_component/dockerfile.md'
+    - 'container': '2_component/container.md'
+    - 'network': '2_component/network.md'
+    - 'volume': '2_component/volume.md'
   - 'プロダクションでの活用':
-    - 'オーケストレーションツール': 'index.md'
-    - '設計': 'index.md'
-    - 'ローカルでの活用': 'index.md' # Docker for Mac(Windows)
-    - 'イメージの仕組み': 'index.md'
-    - 'Dockerfile ベストプラクティス': 'index.md'
-    - 'セキュリティ': 'index.md'
-    - '導入': 'index.md'
-  - 'Tips'
-    - '動作確認': 'index.md' # diff, inspect, top...
-    - 'docker-compose': 'index.md'
-    - 'ECS': 'index.md'
+    - '設計': '3_production/design.md'
+    - 'オーケストレーションツール': '3_production/orchestration.md'
+    - 'ローカルでの活用': '3_production/local.md'
+    - 'イメージの仕組み': '3_production/image.md'
+    - 'Dockerfile': '3_production/dockerfile.md'
+    - 'セキュリティ': '3_production/security.md'
+    - 'プロダクションへの導入': '3_production/introduction.md'
+  - 'Tips':
+    - 'tools': '4_tips/tools.md'
+    - 'docker-compose': '4_tips/docker-compose.md'

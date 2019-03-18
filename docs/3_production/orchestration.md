@@ -1,0 +1,5 @@
+- 協調して動かす
+- docker-compose
+- swarm
+- ecs
+- kubernetes
