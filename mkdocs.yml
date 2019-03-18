@@ -49,7 +49,7 @@ nav:
   - 'プロダクションでの活用':
     - '設計': '3_production/design.md'
     - 'オーケストレーションツール': '3_production/orchestration.md'
-    - 'ローカルでの活用': '3_production/local.md'
+    - 'docker-compose': '3_production/docker-compose.md'
     - 'イメージの仕組み': '3_production/image.md'
     - 'Dockerfile': '3_production/dockerfile.md'
     - 'セキュリティ': '3_production/security.md'
