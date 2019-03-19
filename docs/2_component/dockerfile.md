@@ -132,7 +132,7 @@ latest: digest: sha256:99aab145aaa0bf0e51a2ab995e0051b1756e1016cbc7d82bcee663c79
 
 ローカルのImageを削除
 ```
-$ docker container prune -a
+$ docker container prune
 WARNING! This will remove all stopped containers.
 Are you sure you want to continue? [y/N] y
 Deleted
