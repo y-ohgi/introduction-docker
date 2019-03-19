@@ -17,20 +17,20 @@ windows
 [Install Docker Toolbox on Windows | Docker Documentation](https://docs.docker.com/toolbox/toolbox_install_windows/)
 
 ---
-## `docker-clear`
+## `docker-clean`
 Dockerリソースを削除するためのコマンド。  
 Dockerは基本的にエフェメラルであるべきなので脳死で定期的に打っていくといいとおもいます。とてもすき。べんり。  
 
 ### Example
 現在起動中のcontainerに関連しないリソース(container, image, network, volume)を削除する。  
 ```
-$ docker-clear stop
+$ docker-clean stop
 ```
 
 Dockerのリソース全てを削除する。  
 起動中のcontainerも削除される点に注意。  
 ```
-$ docker-clear all
+$ docker-clean all
 ```
 
 ### Install
