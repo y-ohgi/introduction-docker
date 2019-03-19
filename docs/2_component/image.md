@@ -55,7 +55,7 @@ $ docker run -i -t ubuntu bash
 bashの中に入れたら試しにコマンドを打って、ホストと異なる環境か確かめてみましょう。
 
 ```
-# docker run ubuntu cat /etc/issue
+# cat /etc/issue
 Ubuntu 18.04.1 LTS
 ```
 
