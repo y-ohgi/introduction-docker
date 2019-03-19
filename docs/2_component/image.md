@@ -106,7 +106,7 @@ starefossen/ruby-node             Docker Image with Ruby and Node.js installed  
 今回は「標準出力を出力する」ようにコマンドを与えてみましょう。
 
 ```
-$ docker run ruby ruby -e "puts 'Hello, Docker!'"
+$ docker run ruby ruby -e 'puts "Hello, Docker!"'
 Unable to find image 'ruby:latest' locally
 latest: Pulling from library/ruby
 741437d97401: Pull complete
