@@ -4,7 +4,7 @@
 Dockerではネットワークの扱いが重要になってきます。  
 先述したDocker Container の動きの通り **1コンテナでは1プロセスを動かす** 設計をされおり、復数プロセスを協調して動かすときにはネットワークを使用します。 
 
-NetowrkはKubernetesやECS、docker-composeのような各種オーケストレーションツールを使用する際に意識する必要があります。
+NetworkはKubernetesやECS、docker-composeのような各種オーケストレーションツールを使用する際に意識する必要があります。
 
 ## Driverの種類
 ![network-driver](imgs/network-driver.png)
