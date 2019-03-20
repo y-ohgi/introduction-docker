@@ -115,7 +115,7 @@ $
 ```
 
 ### 4. 新しくネットワークを作成し、疎通できないことを確認する
-`myapp2` というネットワークを作成し、 `nginx2` というい命名でnginxを起動する。
+`myapp2` というネットワークを作成し、 `nginx2` という命名でnginxを起動する。
 ```
 $ docker network create myapp2
 $ docker run --name nginx2 --network=myapp2 -d nginx
