@@ -119,7 +119,7 @@ latest: Pulling from library/ruby
 6cf2f39ff067: Pull complete
 Digest: sha256:20830a7eb2c48390644cc233fd17520794e5bfce523516fc904068930de16a45
 Status: Downloaded newer image for ruby:latest
-hoge
+HelloDocker!
 ```
 
 !!! pullの省略
