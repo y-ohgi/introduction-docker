@@ -6,7 +6,7 @@ Dockerの入門からプロダクションで活用するプラクティスに�
 
 ## 想定する読者層
 - WebAPIのようなサーバーサイドのプログラミングをしたことがある
-- Dockerをこれから触ってみよう/導入しようと考えている初級者
+- Dockerをこれからプロダクション環境へ導入してみたいと考えている初学者
 
 ## Version
 - Docker
@@ -25,3 +25,12 @@ Dockerの入門からプロダクションで活用するプラクティスに�
 ## 参考
 - [Docker ドキュメント日本語化プロジェクト — Docker-docs-ja 17.06.Beta ドキュメント](http://docs.docker.jp/index.html)
 - [Docker Documentation | Docker Documentation](https://docs.docker.com/)
+
+## 備考
+- GitHub
+    - [y-ohgi/introduction-docker: Docker入門勉強会用gitbook](https://github.com/y-ohgi/introduction-docker)
+- 筆者
+    - [@_y_ohgi](https://twitter.com/_y_ohgi)
+
+DMM.comの社内勉強会に使用した資料の一部を公開したものです。  
+[DMM採用情報 | DMM.com Group](https://dmm-corp.com/recruit/top)
