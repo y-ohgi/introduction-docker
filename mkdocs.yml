@@ -28,6 +28,8 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
 
+google_analytics: ['UA-136697307-1', 'y-ohgi.com']
+
 extra_css:
   - "assets/custom.css"
 
