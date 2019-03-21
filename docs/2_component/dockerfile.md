@@ -173,7 +173,7 @@ hello docker !
 Dockerfileには17のコマンドが用意されています。
 
 `FROM` , `ENV` , `WORKDIR` , `RUN` , `ADD` , `ARGS` , `CMD` , `ONBUILD` , `LABEL` , `ENTRYPOINT` ,  
-`STOPSIGNAL` , `MAINTAINER` , `VOLUME` , `HEALTHCHECK` , `EXPORT` , `USER` , `SHELL`
+`STOPSIGNAL` , `MAINTAINER` , `VOLUME` , `HEALTHCHECK` , `EXPOSE` , `USER` , `SHELL`
 
 !!! danger "MAINTAINERコマンド"
     `MAINTAINER` コマンドは非推奨です。  
@@ -275,7 +275,7 @@ CMD ["npm", "run", "start"]
 プロダクションで使用することは少ないと思いますが、その他の頻出するコマンドを紹介します。  
 覚えておくと他の人のDockerfileを読む際に役立つでしょう。
 
-#### EXPORT
+#### EXPOSE
 コンテナ起動時に公開することを想定されているポートを記述します。  
 `EXPOSE` を記載することで他の人から「このDockerはポートをどの使用するのか」がわかりやすくなるため、記述すると丁寧でしょう。  
 ```
