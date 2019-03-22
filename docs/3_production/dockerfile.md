@@ -50,7 +50,7 @@ Docker Image は各コマンド毎にキャッシュを作成します(これを
 Golangのようなビルドを行い成果物をバイナリとして吐き出す言語であれば、最小限のOSと成果物のバイナリの2つだけで動作します。  
 この2つだけの最低限の環境を用意するために活躍するのがMulti-Stage Buildです。  
 
-Multi-Stage Buildは復数のDocker Image を作り、最終的にその復数のDocker Image から任意のファイルだけをを抽出して1つのDocker Image にします。  
+Multi-Stage Buildは復数のDocker Image を作り、最終的にその復数のDocker Image から任意のファイルだけを抽出して1つのDocker Image にします。  
 
 ```dockerfile
 #==================================================
