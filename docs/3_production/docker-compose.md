@@ -165,3 +165,30 @@ Volumeを削除
 ```
 $ docker-compose rm
 ```
+
+
+!!! note "Dockerで立ち上げたMySQLを使用する"
+    Docker/docker-composeで立ち上げたMySQLコンテナにアクセスすることはもちろん可能です。  
+    ここではCLIでの接続の仕方を2種類紹介します。
+    
+    **パターン1 . 立ち上げたMySQLコンテナを利用して接続する**
+
+    ```
+    $ docker-compose up -d
+    ```
+
+    ```
+    $ docker-compose exec mysql mysql
+    ```
+    
+    **パターン2 . ホストPCからMySQLコンテナへアクセスする。**
+
+    ```
+    $ apk add --no-cache mysql-client
+    ```
+
+    ```
+    $ mysql -h 127.0.0.1 -P 13306 
+    ```
+
+    ここで改めてDockerネットワークを振り返ってみると面白いかも知れません。
