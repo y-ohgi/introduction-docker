@@ -22,8 +22,8 @@ services:
 試しにLaravelを起動してみます。  
 このリポジトリではNginx, php-fpm, MySQLを起動します。
 ```
-$ git clone https://github.com/y-ohgi/2019-aws-handson.git
-$ cd 2019-aws-handson
+$ git clone https://github.com/y-ohgi/introduction-docker.git
+$ cd introduction-docker/laravel
 $ docker-compose up
 ```
 
@@ -43,7 +43,7 @@ services:
     volumes:
       - ./public:/var/www/html/public:ro
     ports:
-      - 8080:80
+      - 8081:80
     environment:
       PHP_HOST: app
 
@@ -53,8 +53,8 @@ services:
       dockerfile: Dockerfile
     env_file:
       - .env.example
-    volumes:
-      - .:/var/www/html:cached
+    # volumes:
+    #   - .:/var/www/html:cached
 
   mysql:
     image: mysql:5.7
@@ -114,10 +114,10 @@ volumes:
 #### ports
 ポートの開放を行います。  
 左にホストのポートを、右にコンテナのポートを指定します。  
-コマンドの場合、 `-p 8080:80` オプションと同一です。
+コマンドの場合、 `-p 8081:80` オプションと同一です。
 ```yaml
 ports:
-  - 8080:80
+  - 8081:80
 ```
 
 #### environment

@@ -1,0 +1,29 @@
+server {
+    listen 80;
+
+    add_header X-Frame-Options "SAMEORIGIN";
+    add_header X-XSS-Protection "1; mode=block";
+    add_header X-Content-Type-Options "nosniff";
+
+    root /var/www/html/public/;
+    charset     utf-8;
+
+    access_log /dev/stdout json;
+
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location = /robots.txt  { access_log off; log_not_found off; }
+
+    location / {
+        try_files $uri /index.php?$query_string;
+    }
+
+    location ~ [^/]\.php(/|$) {
+        fastcgi_pass            ${PHP_HOST}:9000;
+        fastcgi_split_path_info ^(.+?\.php)(/.*)$;
+        fastcgi_index           index.php;
+        fastcgi_param           SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+        fastcgi_param           PATH_INFO        $fastcgi_path_info;
+        fastcgi_param           REQUEST_FILENAME $request_filename;
+        include                 fastcgi_params;
+    }
+}
