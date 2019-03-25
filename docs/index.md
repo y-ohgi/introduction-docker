@@ -31,6 +31,10 @@ Dockerの入門からプロダクションで活用するプラクティスに�
     - [y-ohgi/introduction-docker: Docker入門勉強会用gitbook](https://github.com/y-ohgi/introduction-docker)
 - 筆者
     - [@_y_ohgi](https://twitter.com/_y_ohgi)
+- [Privacy Policy](privacy-policy.md)
+    - Google Analytics によって各章の滞在時間を把握することが目的です。
 
 DMM.comの社内勉強会に使用した資料の一部を公開したものです。  
 [DMM採用情報 | DMM.com Group](https://dmm-corp.com/recruit/top)
+
+
