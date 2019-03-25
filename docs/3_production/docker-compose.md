@@ -128,10 +128,10 @@ environment:
   PHP_HOST: app
 ```
 
-#### env_files
+#### env_file
 ファイルに定義された環境変数を読み取り、コンテナへ定義します。
 ```yaml
-env_files:
+env_file:
   - .env.example
 ```
 
