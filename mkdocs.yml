@@ -16,7 +16,7 @@ theme:
 
 extra:
   search:
-    language: 'jp'
+    language: 'ja'
 
 markdown_extensions:
   - 'admonition'
