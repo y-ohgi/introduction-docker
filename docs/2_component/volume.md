@@ -1,9 +1,13 @@
 ## Volumeについて
+![volume](imgs/volume.png)
+
 ボリュームはデータを永続化するための機能です。
 
-Docker Containerは基本的にエフェメラルなもので、コンテナ上で作成されたファイルはライフサイクルの終了と共に消えてしまいます(正確にはSTOPPED状態に遷移し、消える直線) 。  
+Docker Containerは基本的にエフェメラルなもので、コンテナ上で作成されたファイルはコンテナのライフサイクルの終了と共に消えてしまいます。  
 Volumeはデータ保持・永続化のために設計されており、コンテナのライフサイクルとは独立してファイルの管理を行います。  
+例えばfluentdのようなロガーでロギングをしたい場合がイメージしやすいとおもいます。  
 
+## Volume Type
 Volumeは2つの種類が存在します。
 
 ### Data Volume
@@ -56,17 +60,31 @@ Volumeはこのようにコンテナの外側へファイルが補完されま�
 このコマンドはデバッグ時に便利で、ホストのコードをコンテナへ同期させて動作確認することによく使います。
 
 ### Data Volume Container
-他のDocker Container で指定されているVolumeを参照する
+他のDocker Container で指定されているVolumeを参照するための機能です。
 
-#### `--volumes-from <CONTAINER NAME>`
+参照元となるコンテナを `volume-test` という名前で作成し、その中でファイルを3つ作ってみます。
 ```
-$ docker run --name vol -v /tmp/test ubuntu touch /tmp/test/{hoge,fuga,piyo}
-$ docker run --volumes-from vol ubuntu ls -l /tmp/test
+$ docker run --name volume-test -v /tmp/test ubuntu touch /tmp/test/{hoge,fuga,piyo}
+```
+
+新しくコンテナを起動して、 `volume-test` コンテナのファイルへアクセスできるか確認してみます。
+
+まずはオプションを設定せずに `ls` を実行し、存在しないことを確認しましょう。
+```
+$ docker run ubuntu ls -l /tmp/test
+ls: cannot access '/tmp/test': No such file or directory
+```
+
+次に `--volumes-from` オプションで先程作成した `volume-test` を指定して、 `ls` を実行します。
+```
+$ docker run --volumes-from volume-test ubuntu ls -l /tmp/test
 total 0
 -rw-r--r-- 1 root root 0 Mar 18 18:49 fuga
 -rw-r--r-- 1 root root 0 Mar 18 18:49 hoge
 -rw-r--r-- 1 root root 0 Mar 18 18:49 piyo
 ```
+
+コンテナ間でVolumeの共有ができました。
     
 ## まとめ
 - データの永続化にVolumeを使用する
