@@ -23,7 +23,7 @@ services:
 このリポジトリではNginx, php-fpm, MySQLを起動します。
 ```
 $ git clone https://github.com/y-ohgi/introduction-docker.git
-$ cd introduction-docker/laravel
+$ cd introduction-docker/handson/laravel
 $ docker-compose up
 ```
 
