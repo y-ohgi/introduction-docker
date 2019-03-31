@@ -185,6 +185,8 @@ Dockerfileには17のコマンドが用意されています。
 `FROM` , `COPY` , `RUN` , `CMD` , `WORKDIR` , `ENV` , `USER`
 
 Node.jsを動かす際のサンプルを用意したので、サンプルのDockerfileをもとに見ていきましょう。  
+実際のコードは以下を参照してください。  
+[introduction-docker/handson/dockerfile at master · y-ohgi/introduction-docker](https://github.com/y-ohgi/introduction-docker/tree/master/handson/dockerfile)
 
 
 ```dockerfile
