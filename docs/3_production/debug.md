@@ -118,8 +118,6 @@ nginxのコンテナが"STATUS" が "Up 21 seconds" となっており、実行�
     実行中のコンテナだけを表示したい場合は `-a` オプションを付けないで実行することでフィルタすることができます。  
     ```
     $ docker container ls
-    CONTAINER ID        IMAGE               COMMAND                  CREATED              STATUS              PORTS                   NAMES
-    491f97ab763b        nginx               "nginx -g 'daemon of…"   About a minute ago   Up About a minute   0.0.0.0:32769->80/tcp   silly_hellman
     ```
 
 もう一つnginxコンテナを起動してみましょう。  
