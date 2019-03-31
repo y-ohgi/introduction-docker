@@ -184,7 +184,8 @@ Dockerfileには17のコマンドが用意されています。
 
 `FROM` , `COPY` , `RUN` , `CMD` , `WORKDIR` , `ENV` , `USER`
 
-Node.jsを動かす際のサンプルを用意したので、サンプルのDockerfileをもとに見ていきましょう。
+Node.jsを動かす際のサンプルを用意したので、サンプルのDockerfileをもとに見ていきましょう。  
+
 
 ```dockerfile
 FROM node
@@ -196,13 +197,14 @@ WORKDIR /scripts
 COPY . .
 
 RUN npm install \
-  && groupadd app \
-  && useradd -g app app \
-  && chown -R app:app /scripts
+ && groupadd app \
+ && useradd -g app -m app \
+ && mv /root/.config /home/app/ \
+ && chown -R app:app /scripts /home/app/.config
 
-USER app  
+USER app
 
-CMD ["npm", "run", "start"]
+CMD ["npm", "start"]
 ```
 
 #### FROM

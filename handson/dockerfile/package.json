@@ -1,0 +1,6 @@
+{
+  "name": "dockerfile-example",
+  "scripts": {
+    "start": "node app.js"
+  }
+}
