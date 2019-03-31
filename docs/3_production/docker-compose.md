@@ -1,33 +1,38 @@
 プロジェクトでDockerを使用する際、まず使用するであろうdocker-composeを紹介します。
 
 ## 概要
-ローカルでDockerのオーケストレーションを行うためのツールです。  
+docker-composeはローカルでDockerのオーケストレーションを行うためのツールです。  
 DockerのビルドからNetworkやVolumeの管理をコードベースで定義して行ってくれます。
 
 ## nginxを立ち上げるサンプル
-以下のyamlを定義することでnginxの起動が可能です。  
-単純にnginxを立ち上げるだけなら大げさですが、規模が大きくなってくるとその威力を発揮します。
+docker-composeはDockerの構成をyamlを定義し、そのyamlを元に起動します。  
+例えばnginxを起動し、ホストの8080ポートへコンテナの80ポートをフォワードする設定は以下のyamlになります。
 ```yaml
 version: '3.7'
 
 services:
   nginx:
-    image: nginx:alpine
+    image: nginx
     ports:
       - 8080:80
 ```
 
+`docker run -p 8080:80 nginx` とほぼ同じ動きをします(異なる点としては、docker-composeでは専用のNetworkを作成・使用する点です)。  
+単純なnginxの起動であれば素のdockerコマンドで問題ありませんが、ここにPHP, MySQL...と増えていくとその威力を発揮します。
+
+
 ## Laravelのサンプルを元に学ぶ
+![laravel](imgs/docker-compose-laravel.png)
+雰囲気を知るために上記のような3つのコンテナを協調させて動かしてみましょう。
+
 ### 1. Laravelをdocker-composeで起動する
-試しにLaravelを起動してみます。  
-このリポジトリではNginx, php-fpm, MySQLを起動します。
 ```
 $ git clone https://github.com/y-ohgi/introduction-docker.git
-$ cd introduction-docker/laravel
+$ cd introduction-docker/handson/laravel
 $ docker-compose up
 ```
 
-ポートが公開されるはずなので、ブラウザで確認してみましょう。
+Play with Docker上へポートが公開されるので、ブラウザで確認してみましょう。
 
 ### 2. docker-compose.yamlを読む
 起動したLaravelリポジトリのDockerfileをもとに、docker-compose.yamlの書き方を学びましょう。  
@@ -43,7 +48,7 @@ services:
     volumes:
       - ./public:/var/www/html/public:ro
     ports:
-      - 8081:80
+      - 8080:80
     environment:
       PHP_HOST: app
 
@@ -114,10 +119,10 @@ volumes:
 #### ports
 ポートの開放を行います。  
 左にホストのポートを、右にコンテナのポートを指定します。  
-コマンドの場合、 `-p 8081:80` オプションと同一です。
+コマンドの場合、 `-p 8080:80` オプションと同一です。
 ```yaml
 ports:
-  - 8081:80
+  - 8080:80
 ```
 
 #### environment
