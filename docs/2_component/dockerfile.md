@@ -130,13 +130,18 @@ latest: digest: sha256:99aab145aaa0bf0e51a2ab995e0051b1756e1016cbc7d82bcee663c79
 まずは現在存在するローカルのイメージを削除します。  
 同名のイメージが存在するとDockerHubから取得せず、ローカルに存在するイメージを参照してしまうからです。
 
-ローカルのImageを削除
+実行中のコンテナを削除
 ```
+$ docker contaoner ls -a
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS                      PORTS               NAMES
+429c028bcf74        ubuntu              "echo hoge"         16 seconds ago      Exited (0) 15 seconds ago                       stoic_greider
 $ docker container prune
 WARNING! This will remove all stopped containers.
 Are you sure you want to continue? [y/N] y
 Deleted
 ```
+
+ローカルのImageを削除
 ```
 $ docker image prune -a
 WARNING! This will remove all images without at least one container associated to them.

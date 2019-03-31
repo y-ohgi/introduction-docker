@@ -11,4 +11,3 @@ $ docker run hello
 
 hello! production
 ```
-
