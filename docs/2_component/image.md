@@ -36,7 +36,16 @@ Status: Downloaded newer image for ubuntu:latest
 
 `docker run` でImage上でコマンドを動かすことができます。
 
+
 先程取得したubuntuイメージ上でコマンドを実行して、Ubuntuが動いてることを確かめましょう。
+
+ホストOSがAlpineLinuxで動いていることを確認
+```
+$ cat /etc/issue
+Welcome to Alpine Linux 3.9
+Kernel \r on an \m (\l)
+```
+UbuntuのDockerイメージを起動して、ちゃんとUbuntuが動いていることを確認
 ```
 $ docker run ubuntu cat /etc/issue
 Ubuntu 18.04.1 LTS
