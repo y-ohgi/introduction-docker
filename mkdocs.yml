@@ -51,12 +51,12 @@ nav:
   - 'プロダクションでの活用':
     - 'デバッグ': '3_production/debug.md'
     - '設計': '3_production/design.md'
-    - 'オーケストレーションツール': '3_production/orchestration.md'
-    - 'docker-compose': '3_production/docker-compose.md'
     - 'イメージの仕組み': '3_production/image.md'
     - 'Dockerfile': '3_production/dockerfile.md'
     - 'セキュリティ': '3_production/security.md'
     - 'プロダクションへの導入': '3_production/introduction.md'
+    - 'オーケストレーションツール': '3_production/orchestration.md'
+    - 'docker-compose': '3_production/docker-compose.md'
   - 'Tips':
     - 'tools': '4_tips/tools.md'
     - 'docker-compose': '4_tips/docker-compose.md'
