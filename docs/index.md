@@ -36,5 +36,3 @@ Dockerの入門からプロダクションで活用するプラクティスに�
 
 DMM.comの社内勉強会に使用した資料の一部を公開したものです。  
 [DMM採用情報 | DMM.com Group](https://dmm-corp.com/recruit/top)
-
-
