@@ -44,14 +44,12 @@ $ docker volume inspect ec960f53dd549aa8d771ae12b8f489b218c39fd8aea98baa2c9dca00
 早速アクセスしてみましょう。
 
 ```
-$ ls -l /var/lib/docker/volumes/b29ba9e3f10d67d8fd81718dbd346ff0992832a2bd9927087a6c8c0fe8f29
-32a/_data
+$ ls -l /var/lib/docker/volumes/b29ba9e3f10d67d8fd81718dbd346ff0992832a2bd9927087a6c8c0fe8f2932a/_data
 total 0
--rw-r--r--    1 root     root             0 Mar 18 18:38 hoge
+-rw-r--r--    1 root     root             0 Mar 18 18:38 hogefugapiyo
 ```
 
 Volumeはこのようにコンテナの外側へファイルが補完されます。
-
 
 #### `-v <HOST PATH>:<CONTAINER PATH>`
 先程は `<CONTAINER PATH>` だけ指定しましたが、今度はホスト側のパスを指定します。  

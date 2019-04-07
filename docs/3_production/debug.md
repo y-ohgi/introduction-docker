@@ -237,8 +237,8 @@ Commercial support is available at
 
 nginxが参照しているhtmlを更新し、Play with Docker で表示されているリンクからアクセスして実際に書き換えることができたか確認してみましょう。  
 ```
-root@85a6b023ba49:/# echo "<h1>hello docker</h1>" > /usr/share/nginx/index.html
-root@85a6b023ba49:/# cat /usr/share/nginx/index.html
+root@85a6b023ba49:/# echo "<h1>hello docker</h1>" > /usr/share/nginx/html/index.html
+root@85a6b023ba49:/# cat /usr/share/nginx/html/index.html
 <h1>hello docker</h1>
 root@85a6b023ba49:/# exit
 ```
