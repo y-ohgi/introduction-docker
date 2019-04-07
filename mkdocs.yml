@@ -49,13 +49,13 @@ nav:
     - 'network': '2_component/network.md'
     - 'volume': '2_component/volume.md'
   - 'プロダクションでの活用':
-    - 'デバッグ': '3_production/debug.md'
     - '設計': '3_production/design.md'
+    - 'セキュリティ': '3_production/security.md'
+    - 'デバッグ': '3_production/debug.md'
     - 'イメージの仕組み': '3_production/image.md'
-    - 'Dockerfile': '3_production/dockerfile.md'
+    - 'Dockerfileのベストプラクティス': '3_production/dockerfile.md'
     - 'オーケストレーションツール': '3_production/orchestration.md'
     - 'docker-compose': '3_production/docker-compose.md'
-    - 'セキュリティ': '3_production/security.md'
     - 'プロダクションへの導入': '3_production/introduction.md'
   - 'Tips':
     - 'tools': '4_tips/tools.md'
