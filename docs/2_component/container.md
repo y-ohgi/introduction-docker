@@ -1,8 +1,11 @@
 ## Docker Containerとは
 ![dockerfile](imgs/dockerfile.png)
 Docker Image がスナップショットだとしたらDocker Container はその **「スナップショットから起動したプロセス」** です。  
+
 より具体的にいうと `docker run` を実行するとDocker Image をもとにしてDocker Containerが作成され、隔離された環境が作成されます。  
 Docker Container は Docker Imageを元にして作成され、リソースの許す限り立ち上げることができます。
+
+注意点としてDocker Container は1つのコマンドをフォアグラウンドで動かすように設計されて
 
 ## ライフサイクル
 ![lifecycle](imgs/lifecycle.png)
@@ -33,10 +36,43 @@ Docker Container は大きく5つの状態を遷移します。
 コンテナ内のプロセスはホストマシンや他のコンテナと隔離されて実行されます。  
 上記の図のようにホストマシンのDockerで作成されたコンテナは新しい環境を作成し、 `CMD` (もしくは `ENTRYPOINT` )で定義されたプロセスは `PID 1` になります。
 
-ためしに `ps` コマンドを実行するDockerを起動し、PIDがいくつになるか確認してみましょう。
-
-```
+ためしに `ps` コマンドを実行するDockerを起動し、その環境の最初のプロセスとして起動していることを確認します。
+```console
 $ docker run ubuntu ps
   PID TTY          TIME CMD
       1 ?        00:00:00 ps
 ```
+
+ホストからコンテナがどう見えるかも確認してみましょう。  
+準備としてプロセスの関係を見やすくするために `pstree` コマンドをインストールします。
+```console
+$ apk add --no-cache pstree
+```
+
+nginxのDockerコンテナをデーモンとして起動して、 `pstree` で確認してみましょう。
+```console
+$ docker run -d nginx
+Unable to find image 'nginx:latest' locally
+latest: Pulling from library/nginx
+27833a3ba0a5: Pull complete
+e83729dd399a: Pull complete
+ebc6a67df66d: Pull complete
+Digest: sha256:c8a861b8a1eeef6d48955a6c6d5dff8e2580f13ff4d0f549e082e7c82a8617a2
+Status: Downloaded newer image for nginx:latest
+eef4217efa74c65b36b7c80012eeaf0a9a8928717f5602a641dc20ddc91daf10
+$ pstree
+-+= 00001 root /bin/sh -c cat /etc/hosts >/etc/hosts.bak &&     sed 's/^::1.*//' /etc/hosts.bak > /
+ |--- 00033 root /usr/sbin/sshd -o PermitRootLogin=yes -o PrintMotd=no
+ |-|- 00009 root script -q -c /bin/bash -l /dev/null
+ | \-+= 00010 root /bin/bash -l
+ |   \--= 02850 root pstree
+ \-|- 00008 root dockerd
+   \-+= 00038 root containerd --config /var/run/docker/containerd/containerd.toml --log-level debug
+     \-+= 02629 root containerd-shim -namespace moby -workdir /var/lib/docker/containerd/daemon/io.
+       \-+= 02647 root nginx: master process nginx -g daemon off;
+         \--- 02686 #101 nginx: worker process
+```
+
+## おまけ
+- `$ docker run ubuntu echo hoge` のような一瞬だけ起動するコマンドだとどのように見えるでしょうか
+- `$ docker run -d nginx` を複数起動するとどのように見えるでしょうか
