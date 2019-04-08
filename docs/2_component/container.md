@@ -5,7 +5,8 @@ Docker Image がスナップショットだとしたらDocker Container はそ�
 より具体的にいうと `docker run` を実行するとDocker Image をもとにしてDocker Containerが作成され、隔離された環境が作成されます。  
 Docker Container は Docker Imageを元にして作成され、リソースの許す限り立ち上げることができます。
 
-注意点としてDocker Container は1つのコマンドをフォアグラウンドで動かすように設計されて
+意識する点として、Docker Container は1つのコマンドをフォアグラウンドで動かすように設計されていることです。  
+Docker Containerは1つのコマンドを隔離された環境で実行し、そのコマンドが終了するまでその環境を起動し続けます。
 
 ## ライフサイクル
 ![lifecycle](imgs/lifecycle.png)
