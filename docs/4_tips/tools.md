@@ -22,7 +22,7 @@ Dockerリソースを削除するためのコマンド。
 Dockerは基本的にエフェメラルであるべきなので脳死で定期的に打っていくといいとおもいます。とてもすき。べんり。  
 
 ### Example
-現在起動中のcontainerに関連しないリソース(container, image, network, volume)を削除する。  
+全てのcontainerを停止、削除します。関連するvolumeとnetworksも削除します。
 ```
 $ docker-clean stop
 ```
