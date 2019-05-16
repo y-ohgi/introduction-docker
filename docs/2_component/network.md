@@ -13,7 +13,8 @@ Dockerでのネットワークは特にKubernetes・ECS・docker-composeのよ�
 Dockerはネットワークの振る舞いを定義することが可能で、デフォルトでは2種類のNetwork Driver が存在します。
 
 ### 1. `bridge`
-Dockerを使用する際は基本的にこのNetwork Driverを使用します。  
+Dockerを使用する際は基本的にこのNetwork Driverを使用されます。  
+Linuxカーネルのbridgeネットワークを使用するための機能
 
 また、何も指定せずDocker Container を起動すると `docker0` という名前のbridgeネットワークに所属します。
 
