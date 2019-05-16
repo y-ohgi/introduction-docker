@@ -1,10 +1,10 @@
 ## Docker Imageとは
 ![image](imgs/image.png)
 
-Imageは**"環境のスナップショット"** としての役割を持っています。  
-例えばCentOSやUbuntuのようなOSからNginxやMySQLのようなソフトウェア、PHPやRubyのようなランタイムなどの環境を提供してくれます。
+Imageは **"環境のスナップショット"** としての役割を持っています。  
+例えばCentOSやUbuntuやAlpineなどのOS、NginxやMySQLのようなソフトウェア、PHPやRubyのようなランタイムなどの環境を提供してくれます。
 
-この章ではハンズオン形式でDocker Imageについて学んでいきます。
+この章ではこのスナップショットの仕組みであるDocker Imageについてハンズオン形式で学んでいきます。
 
 ## Ubuntuを動かす
 はじめに、Docker上でUbuntuを動かしてみましょう。  
@@ -19,7 +19,7 @@ DockerHub上で公開されているUbuntuを今回は使用します。
 まずはUbuntuのDocker ImageをDockerHub上から取得します。  
 `docker pull ubuntu` でDockerHub上からローカルへ取得しましょう。
 
-```
+```console
 $ docker pull ubuntu
 Using default tag: latest
 latest: Pulling from library/ubuntu
@@ -34,18 +34,19 @@ Status: Downloaded newer image for ubuntu:latest
 ### Ubuntu上でコマンドを動かす
 ![docker run ubuntu](imgs/docker-run-ubuntu.png)
 
-`docker run` でImage上でコマンドを動かすことができます。
+`docker run` コマンドでImageを起動することができます。
 
+先程取得したubuntuイメージを起動し、 `cat /etc/issue` コマンドを実行して、実際にUbuntuが動くのかを確認してみましょう。
 
-先程取得したubuntuイメージ上でコマンドを実行して、Ubuntuが動いてることを確かめましょう。
-
-ホストOSがAlpineLinuxで動いていることを確認
+まずはPlay with Docker上のホストがAlpineLinuxで動いていることを確認
 ```
 $ cat /etc/issue
 Welcome to Alpine Linux 3.9
 Kernel \r on an \m (\l)
 ```
-UbuntuのDockerイメージを起動して、ちゃんとUbuntuが動いていることを確認
+
+次にDocker上でUbuntuを実行し、Ubuntuが動いていることを確認します。  
+`docker run ubuntu` でUbuntuのImageを実行し、その引数へ `cat /etc/hosts` を渡します。
 ```
 $ docker run ubuntu cat /etc/issue
 Ubuntu 18.04.1 LTS
@@ -54,51 +55,45 @@ Ubuntu 18.04.1 LTS
 ### bashを使用する
 次はbashを使用してみましょう。
 
-`bash` のような対話的な入力が必要なプロセスは `-i -t` オプションを使用する必要があります。  
+`bash` のような対話的な入力が必要なプロセスも実行が可能です。  
+対話的に使用するためには `-i -t` オプションを使用します。
+
+Ubuntu上でbashを動かしてみましょう。
 
 ```
 $ docker run -i -t ubuntu bash
 # 
 ```
 
-bashの中に入れたら試しにコマンドを打って、ホストと異なる環境か確かめてみましょう。
+bashの中に入れたら試しにコマンドを打って、Ubuntu上に居るか確かめてみましょう。
 
 ```
 # cat /etc/issue
 Ubuntu 18.04.1 LTS
 ```
 
-```
-# env
-  :
-PWD=/
-HOME=/root
-TERM=xterm
-SHLVL=1
-PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-_=/usr/bin/env
-```
+ホストとコンテナ内で異なる環境ということが確認できたでしょうか。  
+他にも `ls` , `env` , `ps` などのコマンドを実行してみると面白いかもしれません。
 
-ホストとコンテナ内で異なる環境ということが確認できましたね。  
-`exit` コマンドでコンテナから脱出しましょう。
+一通り確認し終わったら `exit` コマンドでコンテナから脱出しましょう。
 
 ```
 # exit
 $
 ```
 
-!!! オプションについて
+!!! note " `-i` `-t` オプションについて"
     `-i` はコンテナの標準入力を有効化、 `-t` はttyを有効化するためのオプションです。  
     `docker run -it ...` のように省略することも可能です。
 
 ## 好きな言語でDockerを起動する
 ここまでnginxとubuntuを起動してきましたが、他のDocker Imageも試してみましょう。  
 
-試しにあなたが好きなプログラミング言語があるか探してみましょう！  
-`docker search <LANGUAGE>` で探すことができます。
+試しにあなたが好きなプログラミング言語が使用可能か探してみましょう。  
+`docker search <LANGUAGE>` でパブリックなDocker Image を探すことができます。
 
 ここでは試しにRubyを探してみます。
-```
+```console
 $ docker search ruby
 NAME                              DESCRIPTION                                     STARS               OFFICIAL            AUTOMATED
 ruby                              Ruby is a dynamic, reflective, object-orient…   1621                [OK]
@@ -109,10 +104,11 @@ starefossen/ruby-node             Docker Image with Ruby and Node.js installed  
   :
 ```
 
-復数のRubyにマッチするイメージが見つかりました。
+復数 `ruby` にマッチするイメージが見つかりました。  
+`OFFICIAL` カラムに `[ok]` と記載されているものがDocker公式に認められたイメージです。  
 
 さて、次は見つけたイメージへコマンドを与えてみましょう。  
-今回は「標準出力を出力する」ようにコマンドを与えてみましょう。
+今回は「 `ruby` イメージを使用して標準出力を出力する」ようにコマンドを与えてみましょう。
 
 ```
 $ docker run ruby ruby -e 'puts "Hello, Docker!"'
@@ -136,10 +132,8 @@ HelloDocker!
     基本的に `docker pull <イメージ名>` は省略して使用することが多いですが、省略した場合にも暗黙的に `pull` を行っていることを意識して使用すると良いでしょう。
 
 ## 他のImageでの使用例
-どんなイメージがあるのか試してみましょう
-
 ### CentOS
-```
+```console
 $ docker run -it centos bash
 Unable to find image 'centos:latest' locally
 latest: Pulling from library/centos
@@ -152,7 +146,7 @@ CentOS Linux release 7.6.1810 (Core)
 ```
 
 ### Node.js
-```
+```console
 $ docker run node node --version
 v11.11.0
 $ docker run node node -p 'console.log("hoge")'
@@ -160,7 +154,7 @@ hoge
 ```
 
 ### Python
-```
+```console
 $ docker run python python --version
 Python 3.7.2
 $ docker run python python -c 'print("hoge")'
@@ -173,7 +167,7 @@ DockerImageにはtagという"ラベル"の役割を持つ機能があります�
 
 例えばPythonの2.7を使いたい場合、単純にpullしてrunをすると3.7が立ち上がります(2019年3月現在)。  
 
-```
+```console
 $ docker run python python --version
 Python 3.7.2
 ```
@@ -187,13 +181,13 @@ https://hub.docker.com/_/python
 `2.7` というタグが存在することが確認できました。  
 早速走らせてPythonの2.7の環境が手に入るか確認しましょう。
 
-```
+```console
 $ docker run python:2.7 python --version
 Python 2.7.16
 ```
 
 !!! tagの命名規則
-    Dockerは公式で3パターンの命名規則を定義しています。
+    Dockerは公式で3パターンの命名規則を定義しています。  
     
     1. Docker公式のイメージ
         - `<イメージ名>:<タグ>`
@@ -202,9 +196,10 @@ Python 2.7.16
     3. 非公式レジストリのイメージ
         - `<レジストリ名>/<ユーザー名>/<イメージ名>:<タグ>`
     
-    `:<タグ>` の指定をしない場合は `:latest` へ自動的に保管されます。
+    `:<タグ>` の指定をしない場合は `:latest` タグが自動的に付与されます。  
+    また、DockerHubを使用しない場合(ECRやGCRなどの非公式レジストリ)はtagの設定が必須になります(3番のパターンを使用します)。
 
 ## まとめ
 - Docker Imageは特定の環境のスナップショットで、Imageを起動することで環境を再現することができる
 - DockerHubから様々なDocker Imageを取得することができる
-- tagを指定することで特定のバージョンを使用することができる
+- tagを指定することで特定のバージョン(とレジストリ)を使用することができる

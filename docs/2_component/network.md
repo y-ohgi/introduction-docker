@@ -2,25 +2,26 @@
 ![network](imgs/network.png)
 
 Dockerではネットワークの扱いが重要になってきます。  
-先述したDocker Container の動きの通り **1コンテナでは1プロセスを動かす** 設計をされおり、復数プロセスを協調して動かすときにはネットワークを使用します。 
+先述したDocker Container の動きの通り **1コンテナでは1プロセスを動かす** 設計です。  
+nginxとphp-fpmのように復数プロセスを協調して動かす必要がある時はソケットではなく、ネットワークで通信を行うことが推奨されています。
 
-NetworkはKubernetesやECS、docker-composeのような各種オーケストレーションツールを使用する際に意識する必要があります。
+Dockerでのネットワークは特にKubernetes・ECS・docker-composeのような各種オーケストレーションツールを使用する際に意識する必要があります。
 
 ## Driverの種類
 ![network-driver](imgs/network-driver.png)
 
-Dockerは2種類のNetwork Driverが存在します。
+Dockerはネットワークの振る舞いを定義することが可能で、デフォルトでは2種類のNetwork Driver が存在します。
 
 ### 1. `bridge`
-
 Dockerを使用する際は基本的にこのNetwork Driverを使用します。  
+
 また、何も指定せずDocker Container を起動すると `docker0` という名前のbridgeネットワークに所属します。
 
 ### 2. `host`
 ホストマシンのeth0を直接使用する方法です。
 
-### 3. `none`
-どのDriverも使用せず、起動したコンテナをネットワークにも所属させないための設定です。
+### (3. `none` )
+どのDriverも使用せず、起動したコンテナをネットワークに所属させないための設定です。
 
 ## ネットワークを試す
 

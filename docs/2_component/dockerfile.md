@@ -1,3 +1,6 @@
+
+![dockerfile](imgs/dockerfile.png)
+
 ## Docker Image
 Docker Image が特定の環境のスナップショットということがわかりました。  
 次にDocker Image を自分で作成する方法を見ていきましょう。
