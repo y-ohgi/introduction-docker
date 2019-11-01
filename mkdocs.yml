@@ -60,3 +60,4 @@ nav:
   - 'Tips':
     - 'tools': '4_tips/tools.md'
     - 'docker-compose': '4_tips/docker-compose.md'
+    - '参考書': '4_tips/book.md'
