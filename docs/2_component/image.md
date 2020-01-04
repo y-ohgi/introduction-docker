@@ -104,7 +104,7 @@ starefossen/ruby-node             Docker Image with Ruby and Node.js installed  
   :
 ```
 
-復数 `ruby` にマッチするイメージが見つかりました。  
+複数 `ruby` にマッチするイメージが見つかりました。  
 `OFFICIAL` カラムに `[ok]` と記載されているものがDocker公式に認められたイメージです。  
 
 さて、次は見つけたイメージへコマンドを与えてみましょう。  

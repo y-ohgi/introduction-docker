@@ -32,7 +32,7 @@ Containerレイヤーに操作対象のパスが存在しない場合、Imageレ
 ファイルの更新がかかる度に捜査を実行するため、ログのように書き込みの激しいパスはDataVolumeを使用してUnison FileSystemを回避すると良いでしょう。
 
 ## Dockerイメージ
-Docker Image は復数のDocker Image の積み重ねでできています。  
+Docker Image は複数のDocker Image の積み重ねでできています。  
 Node.jsのフレームワークExpressを構築しながらイメージがどのような作られ方をするのか見ていきましょう。
 
 ### 1. Expressプロジェクトの作成
