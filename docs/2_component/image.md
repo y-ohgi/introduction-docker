@@ -104,8 +104,8 @@ starefossen/ruby-node             Docker Image with Ruby and Node.js installed  
   :
 ```
 
-復数 `ruby` にマッチするイメージが見つかりました。  
-`OFFICIAL` カラムに `[ok]` と記載されているものがDocker公式に認められたイメージです。  
+複数 `ruby` にマッチするイメージが見つかりました。  
+`OFFICIAL` カラムに `[OK]` と記載されているものがDocker公式に認められたイメージです。  
 
 さて、次は見つけたイメージへコマンドを与えてみましょう。  
 今回は「 `ruby` イメージを使用して標準出力を出力する」ようにコマンドを与えてみましょう。
@@ -124,7 +124,7 @@ latest: Pulling from library/ruby
 6cf2f39ff067: Pull complete
 Digest: sha256:20830a7eb2c48390644cc233fd17520794e5bfce523516fc904068930de16a45
 Status: Downloaded newer image for ruby:latest
-HelloDocker!
+Hello, Docker!
 ```
 
 !!! pullの省略

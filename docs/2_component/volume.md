@@ -16,7 +16,7 @@ Docker Container のライフサイクルの外で管理されるファイル/�
 ### オプション
 #### `-v <CONTAINER PATH>`
 
-`/tmp/text` をボリュームとして実行後、volumeが作成された確認してみます。
+`/tmp/text` をボリュームとして実行後、volumeが作成されたか確認してみます。
 ```
 $ docker run -v /tmp/text ubuntu touch /tmp/text/hogefugapiyo
 $ docker volume ls
@@ -49,7 +49,7 @@ total 0
 -rw-r--r--    1 root     root             0 Mar 18 18:38 hogefugapiyo
 ```
 
-Volumeはこのようにコンテナの外側へファイルが補完されます。
+Volumeはこのようにコンテナの外側へファイルが保管されます。
 
 #### `-v <HOST PATH>:<CONTAINER PATH>`
 先程は `<CONTAINER PATH>` だけ指定しましたが、今度はホスト側のパスを指定します。  

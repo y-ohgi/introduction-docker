@@ -330,7 +330,7 @@ $ docker build --build-arg node_env=development .
 
 !!! note "ADD vs COPY"
     基本的に `ADD` を使うのは避け、 `COPY` を使うのが良いでしょう。  
-    `ADD` は「指定したファイルのコピー」・「指定したURLの取得 」・「圧縮されたファイルの解凍」と非常に高機能な反面、Dockerfileが複雑度が増します。  
+    `ADD` は「指定したファイルのコピー」・「指定したURLの取得 」・「圧縮されたファイルの解凍」と非常に高機能な反面、Dockerfileの複雑度が増します。  
     また、URLからファイルを取得するのはパブリックへ依存が発生し、URLの参照先が変更された際にビルド不可なDockerfileができてしまいます。  
     `COPY` の場合機能がシンプルなのでシンプルなDockerfileの作成に繋がります。
 

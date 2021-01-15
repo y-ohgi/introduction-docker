@@ -32,7 +32,7 @@ Containerレイヤーに操作対象のパスが存在しない場合、Imageレ
 ファイルの更新がかかる度に捜査を実行するため、ログのように書き込みの激しいパスはDataVolumeを使用してUnison FileSystemを回避すると良いでしょう。
 
 ## Dockerイメージ
-Docker Image は復数のDocker Image の積み重ねでできています。  
+Docker Image は複数のDocker Image の積み重ねでできています。  
 Node.jsのフレームワークExpressを構築しながらイメージがどのような作られ方をするのか見ていきましょう。
 
 ### 1. Expressプロジェクトの作成
@@ -297,7 +297,7 @@ e52c23bbdd87        30 hours ago         /bin/sh -c #(nop)  CMD ["node"]        
     レイヤーと中間イメージは別物です。  
     Dockerfile上でコマンド( `EXPOSE` , `ENV` , `COPY` , etc)を実行するたびに中間イメージが作成されます。  
     レイヤーは `RUN` , `COPY` , `ADD` の実行時に増やし、UnisonFileSystemへの影響があります。  
-    基本的に、中有間イメージではなくレイヤーを増やさないこと意識するのが良いでしょう。
+    基本的に、中間イメージではなくレイヤーを増やさないこと意識するのが良いでしょう。
 
 ## まとめ
 - Dockerイメージは複数のイメージが積み重なったもの

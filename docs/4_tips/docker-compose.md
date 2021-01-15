@@ -86,7 +86,7 @@ Dockerではその対策としてファイルの共有速度を改善するた�
         - コンテナ上からライブラリのインストールをするコマンド(`composer install` , `npm install` ,etc )を使用する際。
 
 ### docker-composeのサンプル
-node.js x MySQLを想定したdocker-comopseファイル
+node.js x MySQLを想定したdocker-composeファイル
 ```diff
 version: '3.7'
 
