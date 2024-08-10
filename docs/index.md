@@ -10,9 +10,7 @@ Dockerの入門からプロダクションで活用するプラクティスに�
 
 ## Version
 - Docker
-    - 18.09.3
-- docker-compose
-    - 1.23.2
+    - 26.1.3
 
 ## 必要な環境
 - [Docker Hub](https://hub.docker.com/) のアカウント
@@ -23,18 +21,17 @@ Dockerの入門からプロダクションで活用するプラクティスに�
     - Docker for Mac(Windows)の場合VMが間に挟まり挙動が異なるため、こちらを使用することを推奨
 
 ## 参考
-- [Docker ドキュメント日本語化プロジェクト — Docker-docs-ja 17.06.Beta ドキュメント](http://docs.docker.jp/index.html)
 - [Docker Documentation | Docker Documentation](https://docs.docker.com/)
+    - 公式ドキュメントです。
+- [Docker ドキュメント日本語化プロジェクト — Docker-docs-ja 24.0 ドキュメント](https://docs.docker.jp/index.html)
+    - 公式のドキュメントを有志で翻訳してくださっている日本語版です。
 
 ## 備考
-- GitHub
+- このGitBookを管理しているリポジトリ
     - [y-ohgi/introduction-docker: Docker入門勉強会用gitbook](https://github.com/y-ohgi/introduction-docker)
 - 筆者
     - [@_y_ohgi](https://twitter.com/_y_ohgi)
 - [Privacy Policy](privacy-policy.md)
-    - Google Analytics によって各章の滞在時間を把握することが目的です。
-
-DMM.comの社内勉強会に使用した資料の一部を公開したものです。  
-[DMM採用情報 | DMM.com Group](https://dmm-corp.com/recruit/top)
+    - Google Analytics によって各章の滞在時間やセクション毎のニーズを把握することが目的です。
 
 <script data-ad-client="ca-pub-2883800847352578" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
