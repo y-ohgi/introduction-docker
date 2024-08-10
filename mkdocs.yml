@@ -62,8 +62,8 @@ nav:
     - network: 2_component/network.md
     - volume: 2_component/volume.md
   - プロダクションでの活用:
-    - 設計: 3_production/design.md
     - セキュリティ: 3_production/security.md
+    - 設計: 3_production/design.md
     - デバッグ: 3_production/debug.md
     - イメージの仕組み: 3_production/image.md
     - Dockerfileのベストプラクティス: 3_production/dockerfile.md
