@@ -1,11 +1,21 @@
 site_name: '入門 Docker'
 
 theme:
-  name: 'material'
-  language: 'ja'
+  name: material
+  language: ja
   palette:
-    primary: 'indigo'
-    accent: 'indigo'
+    - schema: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to light mode
   font:
     text: 'Roboto'
     code: 'Roboto Mono'
@@ -14,7 +24,7 @@ theme:
     - yaml
     - dockerfile
 
-extra:
+plugin:
   search:
     language: 'ja'
 
@@ -28,36 +38,39 @@ markdown_extensions:
   - pymdownx.tasklist:
       custom_checkbox: true
 
-google_analytics: ['UA-136697307-1', 'y-ohgi.com']
+extra:
+  analytics:
+    provider: google
+    property: UA-136697307-1
 
 extra_css:
-  - "assets/custom.css"
+  - 'assets/custom.css'
 
 extra_javascript:
   - 'assets/custom.js'
 
 nav:
-  - 'Home': 'index.md'
-  - 'はじめに':
-    - 'Dockerとは': '1_introduction/docker.md'
-    - 'VMとDocker': '1_introduction/vm-docker.md'
-    - 'Hello Docker !': '1_introduction/hello-docker.md'
-  - 'コンポーネント':
-    - 'image': '2_component/image.md'
-    - 'dockerfile': '2_component/dockerfile.md'
-    - 'container': '2_component/container.md'
-    - 'network': '2_component/network.md'
-    - 'volume': '2_component/volume.md'
-  - 'プロダクションでの活用':
-    - '設計': '3_production/design.md'
-    - 'セキュリティ': '3_production/security.md'
-    - 'デバッグ': '3_production/debug.md'
-    - 'イメージの仕組み': '3_production/image.md'
-    - 'Dockerfileのベストプラクティス': '3_production/dockerfile.md'
-    - 'オーケストレーションツール': '3_production/orchestration.md'
-    - 'docker-compose': '3_production/docker-compose.md'
-    - 'プロダクションへの導入': '3_production/introduction.md'
-  - 'Tips':
-    - 'tools': '4_tips/tools.md'
-    - 'docker-compose': '4_tips/docker-compose.md'
-    - '参考書': '4_tips/book.md'
+  - Home: index.md
+  - はじめに:
+    - Dockerとは: 1_introduction/docker.md
+    - VMとDocker: 1_introduction/vm-docker.md
+    - Hello Docker !: 1_introduction/hello-docker.md
+  - コンポーネント:
+    - image: 2_component/image.md
+    - dockerfile: 2_component/dockerfile.md
+    - container: 2_component/container.md
+    - network: 2_component/network.md
+    - volume: 2_component/volume.md
+  - プロダクションでの活用:
+    - 設計: 3_production/design.md
+    - セキュリティ: 3_production/security.md
+    - デバッグ: 3_production/debug.md
+    - イメージの仕組み: 3_production/image.md
+    - Dockerfileのベストプラクティス: 3_production/dockerfile.md
+    - オーケストレーションツール: 3_production/orchestration.md
+    - docker-compose: 3_production/docker-compose.md
+    - プロダクションへの導入: 3_production/introduction.md
+  - Tips:
+    - tools: 4_tips/tools.md
+    - docker-compose: 4_tips/docker-compose.md
+    # - 参考書: 4_tips/book.md
