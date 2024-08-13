@@ -1,3 +1,8 @@
+---
+title: VMとDocker
+description: VMとDockerの違いについて紹介します。
+---
+
 プロジェクトでDockerを使用する際、まず使用するであろうdocker-composeを紹介します。
 
 ## 概要

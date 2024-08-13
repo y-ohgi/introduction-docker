@@ -1,3 +1,8 @@
+---
+title: VMとDocker
+description: VMとDockerの違いについて紹介します。
+---
+
 まずはDocker Image のおさらいです。  
 Docker Image はDockerfileによって作成される特定の環境のスナップショットです。  
 そしてそのDocker Image を実行することでDocker Container を起動することができることがわかりました。
