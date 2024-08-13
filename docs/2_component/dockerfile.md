@@ -1,9 +1,8 @@
 ---
-title: Dockerとは
-description: Dockerを何故使うのか、VMとの違い、どんな技術でできているのかについて紹介します。
+title: Dockerfile
+description: Dockerfileの書き方やDSLを紹介します。
 ---
-    
-    
+
 ![dockerfile](imgs/dockerfile.png)
 
 ## Docker Image
@@ -77,7 +76,7 @@ DockerレジストリはDocker Image を保存するための場所で、Docker�
 Docker公式が提供しているDockerHubへ先ほど作成した `hello` イメージをアップロードしましょう。
 
 !!! クラウドの場合
-    AWSの場合"Elastic Container Registry"が、GCPの場合"Google Container Registry" というDockerレジストリサービスが存在します。  
+    AWSの場合"Elastic Container Registry"が、GCPの場合"Google Artifact Registry" というDockerレジストリサービスが存在します。  
     クラウド上に本番環境を構築する場合は構築するクラウドで提供されているDockerレジストリサービスを使うのが良いでしょう。
 
 ### 1. Docker Hubへログイン
@@ -86,14 +85,8 @@ Docker公式が提供しているDockerHubへ先ほど作成した `hello` イ�
 
 ```
 $ docker login
-Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to
-create one.
 Username: <YOUR USER NAME>
 Password: <YOUR PASSWORD>
-WARNING! Your password will be stored unencrypted in /root/.docker/config.json.
-Configure a credential helper to remove this warning. See
-https://docs.docker.com/engine/reference/commandline/login/#credentials-store
-
 Login Succeeded
 ```
 
@@ -193,9 +186,9 @@ Dockerfileには17のコマンドが用意されています。
     このコマンドが使用されているDockerfileは既に古くなっている可能性があるので注意しましょう。
 
 ### 基本的なコマンド
-個人的に、Dockerfileを本番のワークロードで使用する場合以下の7つのコマンドを覚えるだけで十分だと考えています。  
+個人的に、Dockerfileを本番のワークロードで使用する場合以下の8つのコマンドを覚えるだけで十分だと考えています。  
 
-`FROM` , `COPY` , `RUN` , `CMD` , `WORKDIR` , `ENV` , `USER`
+`FROM` , `COPY` , `RUN` , `CMD` , `WORKDIR` , `ENV` , `USER` , `EXPOSE`
 
 Node.jsを動かす際のサンプルを用意したので、サンプルのDockerfileをもとに見ていきましょう。  
 実際のコードは以下を参照してください。  
@@ -209,25 +202,31 @@ ENV NODE_ENV=production
 
 WORKDIR /scripts
 
+COPY package* .
+
+RUN <<EOF
+npm install
+groupadd app
+useradd -g app -m app
+mv /root/.config /home/app/ \
+chown -R app:app /scripts /home/app/.config
+EOF
+
 COPY . .
 
-RUN npm install \
- && groupadd app \
- && useradd -g app -m app \
- && mv /root/.config /home/app/ \
- && chown -R app:app /scripts /home/app/.config
+RUN npm run build
 
 USER app
 
-CMD ["npm", "start"]
+EXPOSE 3000
+
+CMD ["npm", "run", "start"]
 ```
 
 #### FROM
-ベースとなるDocker Image を指定します。  
-DockerはベースとなるDocker Image の上に `COPY` や `RUN` のようなコマンドを重ねてDocker Image を作成します。  
-ベースとなるDocker Image は公式で提供されているImageを使用するのが一般的です。  
-
-また、ここで設定したイメージを「ベースイメージ」と呼びます。
+ベースとなるDocker Image（ベースイメージ）を指定します。  
+Dockerはベースイメージの上に `COPY` や `RUN` のようなコマンドを重ねてイメージを完成させます。  
+また、ベースイメージはDocker HubやGoogle Cloudなどの信頼できるレジストリのイメージを使用するのが一般的です。
 
 ```
 FROM node
@@ -241,10 +240,10 @@ Docker内で使用する環境変数を定義します。
 ENV NODE_ENV=production
 ```
 
-### WORKDIR
+#### WORKDIR
 Dockerfileでコマンドを実行する際に基準となるディレクトリを設定します。  
-このとき存在しないディレクトリを指定すると自動的にディレクトリが作成されます。  
-デフォルトだと `/` が設定されているため、最悪の場合既存のディレクトリを上書きしてしまいコンテナが起動しなくなります。
+この際存在しないディレクトリを指定すると自動的にディレクトリが作成されます。  
+デフォルトだと多くのベースイメージで `/` に設定されているため、新たなディレクトリを作成すると良いでしょう。
 
 ```
 WORKDIR /scripts
@@ -254,7 +253,7 @@ WORKDIR /scripts
 Docker内へホストのファイル/ディレクトリをコピーします。  
 `COPY` は基本的に2つの引数を設定します。1つ目はホスト側のディレクトリ、2つ目はDocker側のディレクトリです。  
 ホスト側のディレクトリは `docker build .` で指定したディレクトリです。この場合 `.` を指定しており、カレントディレクトリが参照されます。  
-Docker側は `WORKDIR` で定義されたディレクトリを参照します。
+Docker側はデフォルトのパス、もしくは `WORKDIR` で定義されたディレクトリを参照します。
 
 ```
 COPY . .
@@ -262,27 +261,31 @@ COPY . .
 
 #### RUN
 Docker内でコマンドを実行します。  
-ここでコンテナへ依存するライブラリやパッケージのインストールやユーザーの設定などの処理を実行します。  
+ここでコンテナへ依存するライブラリ・パッケージのインストール・ユーザーの作成設定などの任意のコマンドを実行します。  
 
 ```
-RUN npm install \
-  && groupadd app \
-  && useradd -g app app \
-  && chown -R app:app /scripts
+RUN npm install
 ```
 
 #### USER
-作成したDocker Image を起動時にログインするユーザーを指定します。  
+イメージを起動時に使用するユーザーを指定します。  
 デフォルトは `root` が設定されているため、セキュリティリスクを回避するために別のユーザーを指定するのが良いでしょう。
 
 ```
 USER app
 ```
 
+#### EXPOSE
+コンテナ起動時に公開するポートを記述します。  
+`EXPOSE` を記載することで他の人から「このDockerはどのポートを使用するのか」がわかりやすくなるため、記述すると丁寧す。  
+```
+EXPOSE 3000
+```
+
 #### CMD
 Docker起動時にデフォルトで実行されるコマンドを定義します。  
 Dockerはここで設定したコマンドがフォアグラウンドで実行されている間が生存期間になります。  
-そのため、プロセスの処理が走っている間はフォアグラウンドで実行するように記述します(バックグラウンドで起動するとDockerが終了してしまう)。
+そのため、プロセスの処理が走っている間はフォアグラウンドで実行するように記述します(バックグラウンドで起動するとDockerが終了してしまいます)。
 
 ```
 CMD ["npm", "run", "start"]
@@ -292,41 +295,29 @@ CMD ["npm", "run", "start"]
 プロダクションで使用することは少ないと思いますが、その他の頻出するコマンドを紹介します。  
 覚えておくと他の人のDockerfileを読む際に役立つでしょう。
 
-#### EXPOSE
-コンテナ起動時に公開することを想定されているポートを記述します。  
-`EXPOSE` を記載することで他の人から「このDockerはどのポートを使用するのか」がわかりやすくなるため、記述すると丁寧でしょう。  
-```
-EXPOSE 3000
-```
-
-コンテナ起動時に `EXPOSE` で指定されたポートをホスト側へ公開するには `-P` オプションを使用する必要があります。  
-```
-$ docker run -P nginx
-```
-
 #### VOLUME
 Data Volumeを作成するためのコマンドです。Volumeについては後の章で説明します。  
-永続的なデータや共有するためのデータ、更新頻度の激しいファイルを扱うために使用されます。  
+永続的なデータ・共有するためのデータ・更新頻度の激しいファイルを扱うために使用されます。  
 基本的に永続的なデータはDockerで管理することは推奨されないため、基本的にログのような更新頻度の激しいファイルで使用すると良いでしょう。
 
 ```
 VOLUME ["/app/log"]
 ```
 
-#### ARGS
+#### ARG
 Dockerfileのビルド時に変数を使用するためのコマンドです。  
-ビルドの前提条件/必要情報が増えると複雑化につながるため、基本的に使用しない方が良いです。
+例えば `NODE_ENV` を基本productionで、ローカル開発にdevelopmentにしたい場合の例です。
 
 ```
-ARGS ${node_env:-production}
-ENV node_env
+ARG ${NODE_END:-production}
+ENV NODE_END=${CONT_IMG_VER}
 ```
 ```
-$ docker build --build-arg node_env=development .
+$ docker buildx build --build-arg NODE_ENV=development .
 ```
 
 #### ADD
-`COPY` コマンドを拡張したコマンドです。  
+`COPY` コマンドを拡張したコマンドで、基本的に非推奨です。  
 主に以下の3つの機能を持ちます。
 
 1. `COPY` と同じく指定したパスをコンテナ内へコピー
@@ -365,6 +356,6 @@ Mon Mar 18 22:36:19 JST 2019
     コマンドのラップをするDocker Image の場合は `ENTRYPOINT` のほうが好ましいですが、一般的なWebアプリケーションの場合は `CMD` を使用する方がユーザーにとって使いやすいDocker Image になります。
     
 ## まとめ
-- Dockerfileを記述してDocker Image を作成する
-- Docker Image はDockerレジストリへアップロードすることで容易に保管/配布ができる
-- Dockerfileは基本的に7個のコマンドの組み合わせで作成できる
+- Dockerfileを元にイメージを生成する。
+- イメージははDockerレジストリへアップロードすることで容易に保管/配布ができる
+- Dockerfileは基本的に8個のコマンドの組み合わせで作成できる

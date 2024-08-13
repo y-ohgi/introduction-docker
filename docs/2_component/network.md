@@ -1,6 +1,6 @@
 ---
-title: VMとDocker
-description: VMとDockerの違いについて紹介します。
+title: Networkについて
+description: コンテナを扱う上で意識する必要があるNetworkについて紹介します。
 ---
 
 ## Networkを使用する

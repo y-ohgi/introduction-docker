@@ -1,12 +1,12 @@
 ---
-title: Dockerとは
-description: Dockerを何故使うのか、VMとの違い、どんな技術でできているのかについて紹介します。
+title: Docker Imageとは
+description: Docker Imageの役割について紹介します。
 ---
 
 ## Docker Imageとは
 ![image](imgs/image.png)
 
-Imageは **"環境のスナップショット"** としての役割を持っています。  
+Imageは **"任意のタイミングのスナップショット"** としての役割を持っています。  
 例えばCentOSやUbuntuやAlpineなどのOS、NginxやMySQLのようなソフトウェア、PHPやRubyのようなランタイムなどの環境を提供してくれます。
 
 この章ではこのスナップショットの仕組みであるDocker Imageについてハンズオン形式で学んでいきます。
