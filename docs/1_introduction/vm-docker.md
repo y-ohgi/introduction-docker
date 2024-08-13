@@ -1,3 +1,8 @@
+---
+title: VMとDocker
+description: VMとDockerの違いについて紹介します。
+---
+
 ![VM Docker](imgs/vm-docker.png)
 
 VMとDockerはどちらも隔離された環境を提供するための技術です。  

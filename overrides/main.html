@@ -6,10 +6,8 @@
   {% set page_title_with_site_name = "" %}
   {% if page.title == config.site_title %}
     {% set page_title_with_site_name = config.site_title %}
-  {% if not page.is_homepage %}
-    {% set page_title_with_site_name = page.meta.get("title", config.site_title) + " - " + config.site_name if page and page.meta else config.site_name %}
   {% else %}
-    {% set page_title_with_site_name = config.site_title %}
+    {% set page_title_with_site_name = page.meta.get("title", config.site_title) + " - " + config.site_name if page and page.meta else config.site_name %}
   {% endif %}
 
   {% set page_description = page.meta.get("description", config.site_description) if page and page.meta else config.site_description %}
