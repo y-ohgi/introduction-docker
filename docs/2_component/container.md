@@ -1,3 +1,8 @@
+---
+title: Dockerとは
+description: Dockerを何故使うのか、VMとの違い、どんな技術でできているのかについて紹介します。
+---
+
 ## Docker Containerとは
 ![dockerfile](imgs/dockerfile.png)
 Docker Image がスナップショットだとしたらDocker Container はその **「スナップショットから起動したプロセス」** です。  
