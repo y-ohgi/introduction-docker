@@ -1,3 +1,8 @@
+---
+title: "Dockerとは"
+description: "Dockerを何故使うのか、VMとの違い、どんな技術でできているのかについて紹介します。"
+---
+
 まずはDocker Image のおさらいです。  
 Docker Image はDockerfileによって作成される特定の環境のスナップショットです。  
 そしてそのDocker Image を実行することでDocker Container を起動することができることがわかりました。

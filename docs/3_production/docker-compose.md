@@ -1,3 +1,8 @@
+---
+title: "Dockerとは"
+description: "Dockerを何故使うのか、VMとの違い、どんな技術でできているのかについて紹介します。"
+---
+
 プロジェクトでDockerを使用する際、まず使用するであろうdocker-composeを紹介します。
 
 ## 概要

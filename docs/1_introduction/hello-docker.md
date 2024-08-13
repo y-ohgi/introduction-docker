@@ -1,3 +1,8 @@
+---
+title: "Hello Docker !"
+description: "実際にDockerをコマンドラインから動かしてみましょう。"
+---
+
 まずはDockerを試してみましょう！  
 この章ではDockerコマンドを使用してnginxを実際に立ち上げることを目標とします。
 

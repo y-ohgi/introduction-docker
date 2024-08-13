@@ -1,4 +1,6 @@
 site_name: '入門 Docker'
+site_description: 'Dockerをハンズオン形式で学ぶサイトです'
+site_author: y-ohgi
 
 theme:
   name: material
@@ -23,14 +25,16 @@ theme:
   hljs_languages:
     - yaml
     - dockerfile
+  custom_dir: overrides
 
 plugin:
-  search:
-    language: 'ja'
+  - search:
+      language: 'ja'
 
 markdown_extensions:
-  - 'admonition'
-  - 'footnotes'
+  - admonition
+  - footnotes
+  - meta
   - codehilite:
       guess_lang: false
   - toc:
@@ -39,9 +43,12 @@ markdown_extensions:
       custom_checkbox: true
 
 extra:
+  version: 1.0
+  # GA
   analytics:
     provider: google
     property: UA-136697307-1
+  generator: false
 
 extra_css:
   - 'assets/custom.css'
@@ -57,18 +64,19 @@ nav:
     - Hello Docker !: 1_introduction/hello-docker.md
   - コンポーネント:
     - image: 2_component/image.md
-    - dockerfile: 2_component/dockerfile.md
+    - Dockerfile: 2_component/dockerfile.md
     - container: 2_component/container.md
     - network: 2_component/network.md
     - volume: 2_component/volume.md
   - プロダクションでの活用:
     - セキュリティ: 3_production/security.md
+    - マルチステージビルド: 3_production/multistage-build.md
+    # - イメージの仕組み: 3_production/image.md
     - 設計: 3_production/design.md
-    - デバッグ: 3_production/debug.md
-    - イメージの仕組み: 3_production/image.md
     - Dockerfileのベストプラクティス: 3_production/dockerfile.md
+    - docker compose: 3_production/docker-compose.md
     - オーケストレーションツール: 3_production/orchestration.md
-    - docker-compose: 3_production/docker-compose.md
+    - デバッグ: 3_production/debug.md
     - プロダクションへの導入: 3_production/introduction.md
   - Tips:
     - tools: 4_tips/tools.md

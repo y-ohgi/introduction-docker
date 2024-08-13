@@ -72,7 +72,7 @@ DockerレジストリはDocker Image を保存するための場所で、Docker�
 Docker公式が提供しているDockerHubへ先ほど作成した `hello` イメージをアップロードしましょう。
 
 !!! クラウドの場合
-    AWSの場合"Elastic Container Registry"が、GCPの場合"Google Container Registry" というDockerレジストリサービスが存在します。  
+    AWSの場合"Elastic Container Registry"が、GCPの場合"Google Artifact Registry" というDockerレジストリサービスが存在します。  
     クラウド上に本番環境を構築する場合は構築するクラウドで提供されているDockerレジストリサービスを使うのが良いでしょう。
 
 ### 1. Docker Hubへログイン
@@ -81,14 +81,8 @@ Docker公式が提供しているDockerHubへ先ほど作成した `hello` イ�
 
 ```
 $ docker login
-Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to
-create one.
 Username: <YOUR USER NAME>
 Password: <YOUR PASSWORD>
-WARNING! Your password will be stored unencrypted in /root/.docker/config.json.
-Configure a credential helper to remove this warning. See
-https://docs.docker.com/engine/reference/commandline/login/#credentials-store
-
 Login Succeeded
 ```
 
@@ -188,7 +182,7 @@ Dockerfileには17のコマンドが用意されています。
     このコマンドが使用されているDockerfileは既に古くなっている可能性があるので注意しましょう。
 
 ### 基本的なコマンド
-個人的に、Dockerfileを本番のワークロードで使用する場合以下の7つのコマンドを覚えるだけで十分だと考えています。  
+個人的に、Dockerfileを本番のワークロードで使用する場合以下の8つのコマンドを覚えるだけで十分だと考えています。  
 
 `FROM` , `COPY` , `RUN` , `CMD` , `WORKDIR` , `ENV` , `USER`
 
@@ -283,10 +277,6 @@ Dockerはここで設定したコマンドがフォアグラウンドで実行�
 CMD ["npm", "run", "start"]
 ```
 
-### よく使用されるコマンド
-プロダクションで使用することは少ないと思いますが、その他の頻出するコマンドを紹介します。  
-覚えておくと他の人のDockerfileを読む際に役立つでしょう。
-
 #### EXPOSE
 コンテナ起動時に公開することを想定されているポートを記述します。  
 `EXPOSE` を記載することで他の人から「このDockerはどのポートを使用するのか」がわかりやすくなるため、記述すると丁寧でしょう。  
@@ -294,10 +284,15 @@ CMD ["npm", "run", "start"]
 EXPOSE 3000
 ```
 
-コンテナ起動時に `EXPOSE` で指定されたポートをホスト側へ公開するには `-P` オプションを使用する必要があります。  
+
+コンテナ起動時に `EXPOSE` で指定されたポートをホスト側へ公開するには `-P` もしくは `-p` オプションを使用する必要があります。  
 ```
 $ docker run -P nginx
 ```
+
+### よく使用されるコマンド
+プロダクションで使用することは少ないと思いますが、その他の頻出するコマンドを紹介します。  
+覚えておくと他の人のDockerfileを読む際に役立つでしょう。
 
 #### VOLUME
 Data Volumeを作成するためのコマンドです。Volumeについては後の章で説明します。  

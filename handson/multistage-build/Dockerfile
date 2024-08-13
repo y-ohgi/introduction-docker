@@ -1,4 +1,4 @@
-FROM golang:1.22 AS builder
+FROM --platform=$TARGETPLATFORM golang:1.22 AS builder
 
 WORKDIR /app
 
@@ -6,7 +6,7 @@ COPY . .
 
 RUN go build -o main .
 
-FROM busybox
+FROM --platform=$TARGETPLATFORM busybox
 
 WORKDIR /app
 

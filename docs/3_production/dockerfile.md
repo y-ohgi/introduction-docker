@@ -1,3 +1,8 @@
+---
+title: "Dockerとは"
+description: "Dockerを何故使うのか、VMとの違い、どんな技術でできているのかについて紹介します。"
+---
+
 この章ではDockerfileを記述する際のベストプラクティスについて記述します。
 
 ## 軽量なイメージを作る
@@ -62,7 +67,7 @@ Golangのようなビルドを行い成果物をバイナリとして吐き出�
 
 Multi-Stage Buildは複数のDocker Image を作り、最終的にその複数のDocker Image から任意のファイルだけを抽出して1つのDocker Image にします。  
 
-```dockerfile
+```Dockerfile
 #==================================================
 # Build Layer
 FROM golang:1.12-alpine as build
