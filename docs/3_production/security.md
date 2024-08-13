@@ -1,3 +1,8 @@
+---
+title: VMとDocker
+description: VMとDockerの違いについて紹介します。
+---
+
 Dockerも他のソフトウェア同様にセキュリティに気を配る必要があります。
 
 ## rootユーザを使わない

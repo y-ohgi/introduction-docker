@@ -1,3 +1,8 @@
+---
+title: VMとDocker
+description: VMとDockerの違いについて紹介します。
+---
+
 dockerを使用する際に便利なツール
 
 ## Kitematic

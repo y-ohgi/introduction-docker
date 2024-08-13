@@ -1,4 +1,8 @@
 docker-composeでよく使うTips集です。
+---
+title: VMとDocker
+description: VMとDockerの違いについて紹介します。
+---
 
 ## 環境変数の読み込み
 一般的にDockerのベストプラクティスにのっとった設計をすると環境変数で各種パラメータの定義が重要になってきます。  
