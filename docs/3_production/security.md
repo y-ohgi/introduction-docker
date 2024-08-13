@@ -57,67 +57,6 @@ Private Repositoryのcloneなど、どうしても機微情報が必要な場合
 
 現在はデフォルトで有効化されているBuildKitであればレイヤー内で機微情報を削除し、 **最終イメージに機微情報が残らなければ** 基本的に問題ないです。
 
-### 中間レイヤーから機微情報を抜き出す例
-Dockerのビルドはレイヤー毎にスナップショットがとられ、次のビルドの高速化のために中間レイヤーが生成されます。  
-Dockerのv20からはデフォルトでBuildKitが有効になり容易に中間レイヤーにアクセスできなくなりましたが。  
-しかし、 `docker save` コマンドでtarとして出力してから任意のレイヤーを吐き出すように設定を書き換えて `docker load` でアクセスすることは可能です。
-
-今回はわかりやすいよう、BuildKitを無効化し、中間レイヤーから機微情報を抜き出してみます。
-
-一時的に "mypassword" と記載されたテキストファイルを /tmp/pass.txt に配置し、その後 /tmp/pass.txt を削除するイメージを作成してみます。
-```Dockerfile
-FROM node:22-slim
-
-RUN echo "mypassword" > /tmp/pass.txt
-
-RUN echo "delete password" > /tmp/pass.txt
-
-CMD cat /tmp/pass.txt
-```
-
-BuildKitを無効化し、ビルドを実行します。
-```bash
-$ DOCKER_BUILDKIT=0 docker build -t pass .
-DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
-            BuildKit is currently disabled; enable it by removing the DOCKER_BUILDKIT=0
-            environment-variable.
-
-Sending build context to Docker daemon  3.072kB
-Step 1/4 : FROM node:22-slim
- ---> ba83b0f18f30
-Step 2/4 : RUN echo "mypassword" > /tmp/pass.txt
- ---> Using cache
- ---> b48e7229fe78
-Step 3/4 : RUN echo "delete password" > /tmp/pass.txt
- ---> Using cache
- ---> cdf556ff4f4b
-Step 4/4 : CMD cat /tmp/pass.txt
- ---> Running in a5c245f8588e
- ---> Removed intermediate container a5c245f8588e
- ---> 26a1e198ef63
-Successfully built 26a1e198ef63
-Successfully tagged pass:latest
-```
-
-成果イメージを実行すると、 delete password と出力され想定通りの出力となっています。
-```bash
-$ docker run pass
-delete password
-```
-
-ビルド時にキャッシュされたレイヤーを指定して、 `/tmp/pass.txt` の内容を確認してみます。
-```
-Step 2/4 : RUN echo "mypassword" > /tmp/pass.txt
- ---> Using cache
- ---> b48e7229fe78
-```
-
-mypassword と出力されてしまい、中間レイヤーに機微情報が残ってしまっていることが確認できてしまいました。
-```bash
-$ docker run b48e7229fe78 cat /tmp/pass.txt
-mypassword
-```
-
 ## .dockerignore ファイルでローカルの不要なパスを無視する
 Dockerビルド時に無視するパスを記述するファイルで、 `.gitignore` のようなイメージに近いです。  
 
@@ -197,3 +136,65 @@ dockerソケットが乗っ取られてしまうとそれを踏み台に任意�
 
 しかし、CIや監視などでdockerソケットのマウントを要求するツールも存在します。  
 安易に与えるのは控え、ソケットをマウントしなければならない場合はRead-Onlyでマウントするようにしましょう。
+
+## 中間レイヤーから機微情報を抜き出す例
+Dockerのビルドはレイヤー毎にスナップショットがとられ、次のビルドの高速化のために中間レイヤーが生成されます。  
+Dockerのv20からはデフォルトでBuildKitが有効になり容易に中間レイヤーにアクセスできなくなりましたが。  
+しかし、 `docker save` コマンドでtarとして出力してから任意のレイヤーを吐き出すように設定を書き換えて `docker load` でアクセスすることは可能です。
+
+今回はわかりやすいよう、BuildKitを無効化し、中間レイヤーから機微情報を抜き出してみます。
+
+一時的に "mypassword" と記載されたテキストファイルを /tmp/pass.txt に配置し、その後 /tmp/pass.txt を削除するイメージを作成してみます。
+```Dockerfile
+FROM node:22-slim
+
+RUN echo "mypassword" > /tmp/pass.txt
+
+RUN echo "delete password" > /tmp/pass.txt
+
+CMD cat /tmp/pass.txt
+```
+
+BuildKitを無効化し、ビルドを実行します。
+```bash
+$ DOCKER_BUILDKIT=0 docker build -t pass .
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            BuildKit is currently disabled; enable it by removing the DOCKER_BUILDKIT=0
+            environment-variable.
+
+Sending build context to Docker daemon  3.072kB
+Step 1/4 : FROM node:22-slim
+ ---> ba83b0f18f30
+Step 2/4 : RUN echo "mypassword" > /tmp/pass.txt
+ ---> Using cache
+ ---> b48e7229fe78
+Step 3/4 : RUN echo "delete password" > /tmp/pass.txt
+ ---> Using cache
+ ---> cdf556ff4f4b
+Step 4/4 : CMD cat /tmp/pass.txt
+ ---> Running in a5c245f8588e
+ ---> Removed intermediate container a5c245f8588e
+ ---> 26a1e198ef63
+Successfully built 26a1e198ef63
+Successfully tagged pass:latest
+```
+
+成果イメージを実行すると、 delete password と出力され想定通りの出力となっています。
+```bash
+$ docker run pass
+delete password
+```
+
+ビルド時にキャッシュされたレイヤーを指定して、 `/tmp/pass.txt` の内容を確認してみます。
+```
+Step 2/4 : RUN echo "mypassword" > /tmp/pass.txt
+ ---> Using cache
+ ---> b48e7229fe78
+```
+
+mypassword と出力されてしまい、中間レイヤーに機微情報が残ってしまっていることが確認できてしまいました。
+```bash
+$ docker run b48e7229fe78 cat /tmp/pass.txt
+mypassword
+```
+
