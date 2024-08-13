@@ -1,4 +1,9 @@
-
+---
+title: Dockerとは
+description: Dockerを何故使うのか、VMとの違い、どんな技術でできているのかについて紹介します。
+---
+    
+    
 ![dockerfile](imgs/dockerfile.png)
 
 ## Docker Image
@@ -72,7 +77,7 @@ DockerレジストリはDocker Image を保存するための場所で、Docker�
 Docker公式が提供しているDockerHubへ先ほど作成した `hello` イメージをアップロードしましょう。
 
 !!! クラウドの場合
-    AWSの場合"Elastic Container Registry"が、GCPの場合"Google Container Registry" というDockerレジストリサービスが存在します。  
+    AWSの場合"Elastic Container Registry"が、GCPの場合"Google Artifact Registry" というDockerレジストリサービスが存在します。  
     クラウド上に本番環境を構築する場合は構築するクラウドで提供されているDockerレジストリサービスを使うのが良いでしょう。
 
 ### 1. Docker Hubへログイン
@@ -81,14 +86,8 @@ Docker公式が提供しているDockerHubへ先ほど作成した `hello` イ�
 
 ```
 $ docker login
-Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to
-create one.
 Username: <YOUR USER NAME>
 Password: <YOUR PASSWORD>
-WARNING! Your password will be stored unencrypted in /root/.docker/config.json.
-Configure a credential helper to remove this warning. See
-https://docs.docker.com/engine/reference/commandline/login/#credentials-store
-
 Login Succeeded
 ```
 
@@ -188,9 +187,9 @@ Dockerfileには17のコマンドが用意されています。
     このコマンドが使用されているDockerfileは既に古くなっている可能性があるので注意しましょう。
 
 ### 基本的なコマンド
-個人的に、Dockerfileを本番のワークロードで使用する場合以下の7つのコマンドを覚えるだけで十分だと考えています。  
+個人的に、Dockerfileを本番のワークロードで使用する場合以下の8つのコマンドを覚えるだけで十分だと考えています。  
 
-`FROM` , `COPY` , `RUN` , `CMD` , `WORKDIR` , `ENV` , `USER`
+`FROM` , `COPY` , `RUN` , `CMD` , `WORKDIR` , `ENV` , `USER` , 
 
 Node.jsを動かす際のサンプルを用意したので、サンプルのDockerfileをもとに見ていきましょう。  
 実際のコードは以下を参照してください。  

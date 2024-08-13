@@ -1,3 +1,8 @@
+---
+title: Hello Docker !
+description: Play with Dockerを使用し、ハンズオン形式で動かしてみましょう！
+---
+
 まずはDockerを試してみましょう！  
 この章ではDockerコマンドを使用してnginxを実際に立ち上げることを目標とします。
 

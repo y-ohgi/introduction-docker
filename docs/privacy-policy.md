@@ -1,3 +1,8 @@
+---
+title: Privacy Policy
+description: Privacy Policy
+---
+
 ## 個人情報の第三者への開示
 
 当サイトでは、個人情報は適切に管理し、以下に該当する場合を除いて第三者に開示することはありません。

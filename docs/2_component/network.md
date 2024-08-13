@@ -1,3 +1,8 @@
+---
+title: VMとDocker
+description: VMとDockerの違いについて紹介します。
+---
+
 ## Networkを使用する
 ![network](imgs/network.png)
 

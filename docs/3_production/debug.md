@@ -1,3 +1,8 @@
+---
+title: VMとDocker
+description: VMとDockerの違いについて紹介します。
+---
+
 Dockerの動作確認方法について学びます。
 
 ## 準備

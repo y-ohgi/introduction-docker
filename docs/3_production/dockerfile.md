@@ -1,3 +1,8 @@
+---
+title: VMとDocker
+description: VMとDockerの違いについて紹介します。
+---
+  
 この章ではDockerfileを記述する際のベストプラクティスについて記述します。
 
 ## 軽量なイメージを作る

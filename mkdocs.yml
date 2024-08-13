@@ -23,6 +23,7 @@ theme:
   hljs_languages:
     - yaml
     - dockerfile
+  custom_dir: overrides
 
 plugin:
   search:
