@@ -1,4 +1,5 @@
 site_name: '入門 Docker'
+site_description: プロダクションへ導入するために必要なDockerの概要から設計までを、なるべく最短経路で学ぶことが目的のハンズオン資料です。
 
 theme:
   name: material
@@ -64,14 +65,14 @@ nav:
     - volume: 2_component/volume.md
   - プロダクションでの活用:
     - セキュリティ: 3_production/security.md
+    - マルチステージビルド: 3_production/multistage-build.md
     - 設計: 3_production/design.md
-    - デバッグ: 3_production/debug.md
     - イメージの仕組み: 3_production/image.md
     - Dockerfileのベストプラクティス: 3_production/dockerfile.md
-    - オーケストレーションツール: 3_production/orchestration.md
-    - docker-compose: 3_production/docker-compose.md
-    - プロダクションへの導入: 3_production/introduction.md
+    - docker compose: 3_production/docker-compose.md
   - Tips:
+    - オーケストレーションツール: 3_production/orchestration.md
+    - docker composeを使いこなす: 4_tips/docker-compose.md
+    - プロダクションへの導入: 3_production/introduction.md
+    - デバッグ: 3_production/debug.md
     - tools: 4_tips/tools.md
-    - docker-compose: 4_tips/docker-compose.md
-    # - 参考書: 4_tips/book.md
