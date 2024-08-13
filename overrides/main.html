@@ -3,17 +3,21 @@
 {% block extrahead %}
   {{ super() }}
 
-  {% set page_title_with_site_name = "" %}
-  {% if page.title == config.site_title %}
-    {% set page_title_with_site_name = config.site_title %}
+  {% set page_title = page.meta.get("title", page.title) if page and page.meta else config.site_name %}
+  {% set site_title = config.site_name %}
+
+  {% if page_title == site_title %}
+    {% set display_title = site_title %}
   {% else %}
-    {% set page_title_with_site_name = page.meta.get("title", config.site_title) + " - " + config.site_name if page and page.meta else config.site_name %}
+    {% set display_title = page_title + " - " + site_title %}
   {% endif %}
 
   {% set page_description = page.meta.get("description", config.site_description) if page and page.meta else config.site_description %}
-  
+
+  <title>{{ display_title }}</title>
+
   <meta property="og:type" content="website">
-  <meta property="og:title" content="{{ page_title_with_site_name }}">
+  <meta property="og:title" content="{{ display_title }}">
   <meta property="og:description" content="{{ page_description }}">
   <meta property="og:image" content="assets/eyecache.png">
   <meta property="og:image:type" content="image/png">
@@ -22,7 +26,7 @@
   <meta property="og:url" content="{{ page.canonical_url }}">
 
   <meta property="twitter:card" content="summary_large_image">
-  <meta property="twitter.title" content="{{ page.canonical_url }}">
+  <meta property="twitter.title" content="{{ display_title }}">
   <meta property="twitter:description" content="{{ page.canonical_url }}">
   <meta property="twitter:image" content="assets/eyecache.png">
     
