@@ -1,165 +1,165 @@
 ---
-title: VMとDocker
-description: VMとDockerの違いについて紹介します。
+title: Dockerfileのベストプラクティス
+description: この章ではDockerfileを記述する際のベストプラクティスについて紹介します。
 ---
   
-この章ではDockerfileを記述する際のベストプラクティスについて記述します。
+この章ではDockerfileを記述する際のベストプラクティスについて紹介します。  
+今までの章を元に、良いDockerfileを書くエッセンスになれば幸いです。
 
-## 軽量なイメージを作る
-Docker Image はレイヤーが少なくサイズが軽いものが良いものだとされています。  
-レイヤーを増やすことはオーバーヘッドに繋がり、サイズはImageのpullの速度に繋がります。
+## ここまでのおさらいです。
+* 「 [セキュリティ](./security.md) 」
+    * 野良のイメージをベースイメージにしない
+    * 様々なサードパティ製品もありますが、Dockerfileだけでも特権ユーザーを使わないなどの設定が必要となります。
+* 「 [マルチステージビルド](./multistage-build.md) 」
+    * イメージは軽量であるほどリードタイムが短くなり有利です。
+    * マルチステージビルドを使うことで軽量なイメージを作成することができます。
+* 「 [イメージの仕組みと設計](./image-design.md) 」
+    * 「1コンテナ = 1プロセス」の原則、もしくは「1コンテナにつき1つの責務」でイメージを設計する必要があります。
+    * コンテナはステートフルである必要があり、ログは標準出力に、永続データは外部のデータストアに入れましょう。
 
-どのようなアプローチでDocker Image を作成すると良いかを見ていきましょう。
+## 軽量なベースイメージを選択する
+軽量イメージを作成するにはまず軽量ベースイメージを選択しましょう。  
 
-### 最小限の構成にする
-例えばPHPの環境を構築するのにCentOSのベースイメージで、phpenvを入れて、MySQLを入れて、、といったことは非推奨です。  
-DockerはいままでのVMとは思想が異なります。1コンテナ1プロセスになるように設計を行いましょう。  
-複数のプロセスを使用したい場合はそれぞれコンテナに分け、オーケストレーションツールを使用してコンテナを協調させて動かしましょう。
+Docker Hubで公式が提供するイメージは軽量な `slim` というタグが付いたイメージが存在します。  
+また、Google Cloudはdistrolessというシェルなどが入っていないシンプルで軽量なイメージを提供しています。
 
-### 軽量なベースイメージを使用する
-Alpine OS という非常に軽量なOSが存在します。  
-まずはこのAlpine OS がベースとなっているDocker Image を使いましょう。
+Docker Hubのnodeイメージとそのnodeの軽量なイメージの2種、そしてGoogle Cloudが提供するdistrolessを比較してみましょう。
+```
+$ docker image list | grep node
+node                                  latest            8994b3212f10   8 days ago          1.12GB
+node                                  22-slim           ba83b0f18f30   8 days ago          240MB
+gcr.io/distroless/nodejs22-debian12   latest            3e738efc87dc   N/A                 152MB
+```
 
-メジャーな言語は一通りAlpineOSに対応しており、Node.jsも例に漏れず対応しております。  
-(nodeのDocker Image が12倍の差があります)
-![node alpine](imgs/node-alpine.png)
+単純なnodeイメージは1GB以上と非常に大きく、逆に軽量化されたイメージは数百MBになります。  
+一番軽量なdistrolessを使うことが理想ですが、シェルなどのツール群が入ってないないため、まずはslimを使用することをお勧めします。
+
+* [GoogleContainerTools/distroless: 🥑 Language focused docker images, minus the operating system.](https://github.com/GoogleContainerTools/distroless)
+
+!!! warn "Alpineイメージ"
+    Alpineイメージは非常に軽量ですが、AlpineイメージのベースOSの歴史的経緯上扱いが非常に難しいため使用することはオススメできません。  
+    元々フロッピーディスクに入るような軽量なOSとして開発された、イメージサイズの軽量化に特化されたもので、逆にそれ以外の非機能要件が満たせないことが多々あります。
 
 ## .dockerignoreを使う
 Dockerのビルド時に無視するファイル/ディレクトリを指定することができます。  
-".git" のようなコンテナ内に不要な情報、 "node_modules" のような上書きされると困るものを記述します。  
-`.dockerignore` は基本的に `.gitignore` と同じ書き方が可能です。
+`.git` のようなビルド時に不要なディレクトリ、 `node_modules` のようなDockerfile内でインストールするものを指定します。
+
+`.dockerignore` は基本的に `.gitignore` と同じ書き方で設定可能です。
 
 ```
-.git/
-node_modules/
+Dockerfile
+compose.yaml
+.dockerignore
+
+.git/*
+node_modules/*
+dist/*
+spec/*
+
+.env*
+.mk*
+
+  :
 ```
 
----
+## ビルド時に複数のアーキテクチャに対応させる
+はじめに、Docker v19からbuildxサブコマンドが増え、Dockerのビルドは `docker buildx build` が使われるようになりました。  
 
-## Build
-### キャッシュを意識する
-Docker Image は各コマンド毎にキャッシュを作成します(これを中間レイヤーと呼びます)。  
-ビルド後に、コマンドの変更・ファイルの追加/更新など、なにか変化を起こすと、変化が起こったレイヤーの直前のキャッシュからビルドを実行します。  
-
-例えば単純な依存ライブラリのインストールだけ行えば問題ないNode.jsのアプリケーションがあったとします。  
-開発中は頻繁にコードの変更を行うはずです。コードの変更を行えばせっかく作成したキャッシュが効かなくなってしまい、ビルドのし直しになってしまいます。  
-単純な `npm install` が必要なアプリケーションであれば `package.json` と `package-lock.json` だけをコンテナ上へコピーして、その後スクリプトのコピーを行うと高速なビルドを実現できるでしょう。
-
-```diff
-  FROM node:slim
-  
-  WORKDIR /scripts
-  
-- COPY . .
-+ COPY ./package.json ./package-lock.json /scripts/
-  
-  RUN npm install
-  
-+ COPY . .
-  
-  CMD ["npm", "start"]
+従来以下のようなシンタックスシュガーを用いていたものが不要になり、マルチプラットフォームなど機能の拡張が行われました。
+```bash
+# syntax=docker/dockerfile:1
 ```
 
-
-### Multi-Stage Build
-Golangのようなビルドを行い成果物をバイナリとして吐き出す言語であれば、最小限のOSと成果物のバイナリの2つだけで動作します。  
-この2つだけの最低限の環境を用意するために活躍するのがMulti-Stage Buildです。  
-
-Multi-Stage Buildは複数のDocker Image を作り、最終的にその複数のDocker Image から任意のファイルだけを抽出して1つのDocker Image にします。  
-
-```dockerfile
-#==================================================
-# Build Layer
-FROM golang:1.12-alpine as build
-
-WORKDIR /go/app
-
-COPY . .
-
-RUN apk add --no-cache git \
-  && go build -o app
-
-#==================================================
-# Run Layer
-FROM alpine
+```
+FROM --platform=$TARGETPLATFORM golang:1.22
 
 WORKDIR /app
 
-COPY --from=build /go/app/app .
-
-RUN addgroup go \
-  && adduser -D -G go go \
-  && chown -R go:go /app/app
-
-CMD ["./app"]
-```
-
-## おまけ
-軽量かつプロダクションを意識したイメージの例
-
-### Dockerfile
-```dockerfile
-FROM node:alpine
-
-ARG UID=991
-ARG GID=991
-
-ENV NODE_ENV=production
-
-WORKDIR /scripts
-
-COPY package.json package-lock.json /scripts/
-
-RUN npm install --production --no-progress
-
 COPY . .
 
-RUN addgroup app -g ${GID} \
-  && adduser -D -G app -u ${UID} app \
-  && mv /root/.config /home/app/ \
-  && chown -R app:app /scripts /home/app/.config
+RUN go build -o main /bin/main
 
-USER app
+CMD ["main"]
+```
 
+```
+$ docker buildx build \
+  --load \
+  --platform linux/amd64,linux/arm64 \
+  -t multi-platform \
+  .
+```
+
+`buildx` サブコマンドは従来の `docker build` の間に挟むだけで簡単に使用可能です。  
+また、 `docker buildx build` 時に `--push` オプションを使うことで、同時にレジストリにpushを行うことも可能です。  
+これにより一度のビルドで別々のアーキテクチャのイメージがビルドし、pushできます。
+
+複数アーキテクチャを扱うメリットとして、例えば使用したいインスタンスが特定のアーキテクチャしか対応していない場合でも、push済みのイメージのアーキテクチャを暗黙的に使い分けることができます。  
+最新のGPUインスタンスがまだamd64しか対応していない場合や、Windowsでローカル開発を行なっているが他のメンバーがarmであったり、本番とローカルでアーキテクチャが異なる場合に便利でしょう。  
+
+レジストリのストレージを考慮する必要はありますが、複数のアーキテクチャを扱いやすくなります。
+
+## TypeScript x Expressのサンプル
+以下はTypeScriptでExpressのAPIを構築するDockerfileのサンプルです。  
+コメントベースで紹介します。
+
+```Dockerfile
+# === Builder
+
+# --platform=${BUILDPLATFORM:-linux/arm64} とすることでビルド時に、 "--platform" オプションが設定されていない場合デフォルトでlinux/arm64でビルドされます。
+FROM --platform=${BUILDPLATFORM:-linux/arm64} node:22-slim AS builder
+
+# /app ディレクトリを作成し、作業ディレクトリとして設定します。
+WORKDIR /app
+
+# package.jsonとpackage-lock.jsonをカレントディレクトリにコピーします。
+COPY package* .
+
+# パッケージインストール
+RUN npm ci
+
+# ソースコードなどをコピー
+COPY . .
+
+# ビルド
+RUN npm run build
+
+# === Runner
+FROM --platform=${BUILDPLATFORM:-linux/arm64} gcr.io/distroless/nodejs22-debian12 AS runner
+
+# /app ディレクトリを作成し、作業ディレクトリとして設定します。
+WORKDIR /app
+
+# "--from=builder" イメージのファイル・ディレクトリをコピー。
+# "--chown=nonroot:nonroot" で権限を"nonroot"に変更する。
+COPY --from=builder --chown=nonroot:nonroot /app/dist ./dist
+COPY --from=builder --chown=nonroot:nonroot /app/package*.json ./
+COPY --from=builder --chown=nonroot:nonroot /app/node_modules ./node_modules
+
+# "nonroot" とすることで特権ユーザーを割り当てない。
+USER nonroot
+
+# 3000番ポートを使用することを明示的に記載。
 EXPOSE 3000
 
-CMD ["npm", "start"]
+# 実行するコードを宣言。
+# MEMO: gcr.io/distroless/nodejs22-debian12 イメージにはENTRYPOINTに "node" 相当のコマンドが設定されている。
+CMD ["dist/app.js"]
 ```
 
-.dockerignore
 ```
-.git/
-node_modules/
+$ docker buildx build \
+  --platform linux/amd64 \
+  --load \
+  -t myapp:latest \
+  .
 ```
 
-イメージの確認
-```
-$ docker build -t myapp:4 .
-   :
-$ docker images myapp
-REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
-myapp               4                   9eb407f3406a        9 seconds ago       90MB
-myapp               3                   87ea6e63c875        32 minutes ago      160MB
-myapp               2                   919f447ae003        About an hour ago   160MB
-myapp               1                   61d3ff752744        About an hour ago   916MB
-$ docker history myapp:4
-IMAGE               CREATED             CREATED BY                                      SIZE                COMMENT
-9eb407f3406a        24 seconds ago      /bin/sh -c #(nop)  CMD ["npm" "start"]          0B
-32d79cd696ee        25 seconds ago      /bin/sh -c #(nop)  EXPOSE 3000                  0B
-ba11be6658e8        25 seconds ago      /bin/sh -c #(nop)  USER app                     0B
-10aaa4ed01f2        25 seconds ago      |2 GID=991 UID=991 /bin/sh -c addgroup app -…   6.04MB
-beba948fcdf5        28 seconds ago      /bin/sh -c #(nop) COPY dir:4031660d2eb87dd44…   30.1kB
-d208f024298c        4 minutes ago       |2 GID=991 UID=991 /bin/sh -c npm install --…   7.8MB
-499f23e1c8b9        4 minutes ago       /bin/sh -c #(nop) COPY multi:7bbf60d9ee13776…   26.2kB
-0989832456ac        4 minutes ago       /bin/sh -c #(nop) WORKDIR /scripts              0B
-8b17881bf747        4 minutes ago       /bin/sh -c #(nop)  ENV NODE_ENV=production      0B
-6a42c9764263        4 minutes ago       /bin/sh -c #(nop)  ARG GID=991                  0B
-b740f7e04562        4 minutes ago       /bin/sh -c #(nop)  ARG UID=991                  0B
-953c516e1466        30 hours ago        /bin/sh -c #(nop)  CMD ["node"]                 0B
-<missing>           30 hours ago        /bin/sh -c apk add --no-cache --virtual .bui…   5.1MB
-<missing>           30 hours ago        /bin/sh -c #(nop)  ENV YARN_VERSION=1.15.2      0B
-<missing>           30 hours ago        /bin/sh -c addgroup -g 1000 node     && addu…   65.4MB
-<missing>           31 hours ago        /bin/sh -c #(nop)  ENV NODE_VERSION=11.13.0     0B
-<missing>           3 weeks ago         /bin/sh -c #(nop)  CMD ["/bin/sh"]              0B
-<missing>           3 weeks ago         /bin/sh -c #(nop) ADD file:88875982b0512a9d0…   5.53MB
-```
+## まとめ
+* 軽量なイメージを作るために、軽量で安全なベースイメージを使いましょう
+* `.dockerignore` で不要なファイル・ディレクトリをビルド時に無視をしましょう
+* 拡張構文を普段から利用する場合、 `docker buildx build` コマンドの採用を検討してみると良いでしょう。
+
+## 参照
+* [Building best practices | Docker Docs](https://docs.docker.com/build/building/best-practices/)
+  * 公式のベストプラクティスです。
