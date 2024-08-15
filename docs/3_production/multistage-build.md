@@ -20,7 +20,7 @@ description: イメージの最適化を行うために使用するマルチス�
 # syntax=docker/dockerfile:1
 
 # === Builder
-FROM golang:1.22 AS Builder
+FROM golang:1.22 AS builder
 
 WORKDIR /app
 
@@ -29,7 +29,7 @@ COPY . .
 RUN go build -o main .
 
 # === Runner
-FROM busybox AS Runner
+FROM busybox AS runner
 
 WORKDIR /app
 
@@ -55,4 +55,11 @@ CMD ["main"]
 
 ```
 $ docker build -t multistage-build .
+```
+
+`--target` オプションで中間イメージを指定することで、中間イメージのみをビルドすることも可能です。
+
+```
+$ docker buildx build -t multi-builder --target builder .
+$ docker run -p 8080:8080 multi-builder ./main
 ```
