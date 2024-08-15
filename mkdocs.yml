@@ -66,13 +66,12 @@ nav:
   - プロダクションでの活用:
     - セキュリティ: 3_production/security.md
     - マルチステージビルド: 3_production/multistage-build.md
-    - 設計: 3_production/design.md
-    - イメージの仕組み: 3_production/image.md
+    - イメージの仕組みと設計: 3_production/image-design.md
     - Dockerfileのベストプラクティス: 3_production/dockerfile.md
     - docker compose: 3_production/docker-compose.md
   - Tips:
-    - オーケストレーションツール: 3_production/orchestration.md
     - docker composeを使いこなす: 4_tips/docker-compose.md
+    - オーケストレーションツール: 3_production/orchestration.md
     - プロダクションへの導入: 3_production/introduction.md
     - デバッグ: 3_production/debug.md
     - tools: 4_tips/tools.md
