@@ -77,6 +77,6 @@ nav:
   - Tips:
     # - docker composeを使いこなす: 4_tips/docker-compose.md
     - オーケストレーションツール: 4_tips/orchestration.md
-    - プロダクションへの導入: 3_production/introduction.md
+    - プロダクションへの導入: 4_tips/introduction.md
     - デバッグ: 3_production/debug.md
-    - tools: 4_tips/tools.md
+    # - tools: 4_tips/tools.md
