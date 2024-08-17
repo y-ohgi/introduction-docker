@@ -1,0 +1,28 @@
+services:
+  next:
+    build:
+      context: .
+      target: deps
+    # 作業ディレクトを "/app" に設定
+    working_dir: /app
+    # ホストのカレントディレクトリを、コンテナ内の "/app" ディレクトリと共有
+    volumes:
+      - ./:/app
+    # 3000番ポートを公開
+    ports:
+      - 3000:3000
+    # 起動コマンド
+    command: npm install && npm run dev
+
+  postgres:
+    image: postgres:16-alpine
+    # tmpディレクトリに永続化。
+    volumes:
+      - ./tmp/db-data:/var/lib/postgresql/data:cached
+    ports:
+      - 5432:5432
+    # 環境変数でユーザー・パスワードの設定とデータベースの作成
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: next

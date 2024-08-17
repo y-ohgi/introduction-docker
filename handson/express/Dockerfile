@@ -1,25 +1,27 @@
-FROM node:alpine
+# === Builder
+FROM --platform=${BUILDPLATFORM:-linux/arm64} node:22-slim AS builder
 
-ARG UID=991
-ARG GID=991
+WORKDIR /app
 
-ENV NODE_ENV=production
+COPY package* ./
 
-WORKDIR /scripts
-
-COPY package.json package-lock.json /scripts/
-
-RUN npm install --production --no-progress
+RUN npm ci
 
 COPY . .
 
-RUN addgroup app -g ${GID} \
-  && adduser -D -G app -u ${UID} app \
-  && mv /root/.config /home/app/ \
-  && chown -R app:app /scripts /home/app/.config
+RUN npm run build
 
-USER app
+# === Runner
+FROM --platform=${BUILDPLATFORM:-linux/arm64} gcr.io/distroless/nodejs22-debian12 AS runner
+
+WORKDIR /app
+
+COPY --from=builder --chown=nonroot:nonroot /app/dist ./dist
+COPY --from=builder --chown=nonroot:nonroot /app/package*.json ./
+COPY --from=builder --chown=nonroot:nonroot /app/node_modules ./node_modules
+
+USER nonroot
 
 EXPOSE 3000
 
-CMD ["npm", "start"]
+CMD ["dist/app.js"]

@@ -1,4 +1,5 @@
 site_name: '入門 Docker'
+site_description: プロダクションへ導入するために必要なDockerの概要から設計までを、なるべく最短経路で学ぶことが目的のハンズオン資料です。
 
 theme:
   name: material
@@ -19,11 +20,9 @@ theme:
   font:
     text: 'Roboto'
     code: 'Roboto Mono'
-  highlightjs: true
-  hljs_languages:
-    - yaml
-    - dockerfile
   custom_dir: overrides
+  features:
+    - content.code.copy
 
 plugin:
   search:
@@ -38,6 +37,13 @@ markdown_extensions:
       permalink: true
   - pymdownx.tasklist:
       custom_checkbox: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
 
 extra:
   analytics:
@@ -64,14 +70,13 @@ nav:
     - volume: 2_component/volume.md
   - プロダクションでの活用:
     - セキュリティ: 3_production/security.md
-    - 設計: 3_production/design.md
-    - デバッグ: 3_production/debug.md
-    - イメージの仕組み: 3_production/image.md
+    - マルチステージビルド: 3_production/multistage-build.md
+    - イメージの仕組みと設計: 3_production/image-design.md
     - Dockerfileのベストプラクティス: 3_production/dockerfile.md
-    - オーケストレーションツール: 3_production/orchestration.md
-    - docker-compose: 3_production/docker-compose.md
-    - プロダクションへの導入: 3_production/introduction.md
+    - docker compose: 3_production/docker-compose.md
   - Tips:
+    - docker composeを使いこなす: 4_tips/docker-compose.md
+    - オーケストレーションツール: 3_production/orchestration.md
+    - プロダクションへの導入: 3_production/introduction.md
+    - デバッグ: 3_production/debug.md
     - tools: 4_tips/tools.md
-    - docker-compose: 4_tips/docker-compose.md
-    # - 参考書: 4_tips/book.md
