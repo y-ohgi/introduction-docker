@@ -1,0 +1,10 @@
+Dockerfile
+.dockerignore
+compose.yaml
+
+.github
+.git
+tmp
+
+node_modules
+.next

@@ -1,6 +1,8 @@
 services:
   next:
-    image: node:22-slim
+    build:
+      context: .
+      target: deps
     # 作業ディレクトを "/app" に設定
     working_dir: /app
     # ホストのカレントディレクトリを、コンテナ内の "/app" ディレクトリと共有
@@ -10,18 +12,17 @@ services:
     ports:
       - 3000:3000
     # 起動コマンド
-    command: npm run dev
+    command: npm install && npm run dev
 
   postgres:
     image: postgres:16-alpine
-    # Dockerのvolume機能を使ってデータの永続化
+    # tmpディレクトリに永続化。
     volumes:
-      - db-data:/var/lib/postgresql/data
+      - ./tmp/db-data:/var/lib/postgresql/data:cached
+    ports:
+      - 5432:5432
     # 環境変数でユーザー・パスワードの設定とデータベースの作成
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: next
-
-volumes:
-  db-data:
