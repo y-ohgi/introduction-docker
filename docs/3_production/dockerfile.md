@@ -155,6 +155,8 @@ $ docker buildx build \
   .
 ```
 
+参照: [introduction-docker/handson/express](https://github.com/y-ohgi/introduction-docker/blob/main/handson/express/Dockerfile)
+
 ## まとめ
 * 軽量なイメージを作るために、軽量で安全なベースイメージを使いましょう
 * `.dockerignore` で不要なファイル・ディレクトリをビルド時に無視をしましょう

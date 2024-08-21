@@ -225,3 +225,5 @@ services:
 +    external:
 +      name: api_network
 ```
+
+参照: [introduction-docker/handson/next](https://github.com/y-ohgi/introduction-docker/tree/main/handson/next)

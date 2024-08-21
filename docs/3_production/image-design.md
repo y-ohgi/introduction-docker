@@ -78,6 +78,8 @@ CMD ["python", "main.py"]
 
 ```
 
+参照: [introduction-docker/handson/cache-layer](https://github.com/y-ohgi/introduction-docker/tree/main/handson/cache-layer)
+
 ライブラリの変更があった場合のみ、ライブラリのインストールをし直すことでビルドタイムを短縮可能になります。
 
 ```Dockerfile
