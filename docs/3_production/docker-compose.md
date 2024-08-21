@@ -208,6 +208,29 @@ services:
 任意のコマンド( `CMD` )を上書きするブロックです。  
 `CMD` で宣言されているコマンドを上書きし、任意のコマンドを実行可能です。  
 
+
+### depends_on & healthcheck
+```yaml
+services:
+  next:
+    # postgresの起動を待つ
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  postgres:
+    image: postgres:16-alpine    
+    # ヘルスチェック
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+```
+`depends_on` は依存関係を示すもので、特定のコンテナの起動を前提として起動を行うためのブロックです。  
+
+また、 `healthcheck` ブロックを併用することでコンテナが動いていることを確認できてから順番に起動することが可能になります。  
+
 ## composeをプロダクションで使うために
 最初に記載したサンプルではシンプルに起動するための例でした。  
 「compopse.yamlの設定」で紹介した設定を元に、プロダクションで使うためにサンプルのyamlを元に書き直してみましょう。
