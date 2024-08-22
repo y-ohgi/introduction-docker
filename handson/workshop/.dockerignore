@@ -4,4 +4,6 @@ compose.yaml
 
 .git
 
+tmp
+
 node_modules
