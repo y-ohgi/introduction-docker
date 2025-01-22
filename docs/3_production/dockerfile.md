@@ -34,7 +34,7 @@ gcr.io/distroless/nodejs22-debian12   latest            3e738efc87dc   N/A      
 単純なnodeイメージは1GB以上と非常に大きく、逆に軽量化されたイメージは数百MBになります。  
 一番軽量なdistrolessを使うことが理想ですが、シェルなどのツール群が入ってないないため、まずはslimを使用することをお勧めします。
 
-* [GoogleContainerTools/distroless: 🥑 Language focused docker images, minus the operating system.](https://github.com/GoogleContainerTools/distroless)
+* <a href="https://github.com/GoogleContainerTools/distroless" target="_blank" rel="noopener noreferrer">GoogleContainerTools/distroless: 🥑 Language focused docker images, minus the operating system.</a>
 
 !!! warn "Alpineイメージ"
     Alpineイメージは非常に軽量ですが、AlpineイメージのベースOSの歴史的経緯上扱いが非常に難しいため使用することはオススメできません。  
@@ -155,7 +155,7 @@ $ docker buildx build \
   .
 ```
 
-参照: [introduction-docker/handson/express](https://github.com/y-ohgi/introduction-docker/blob/main/handson/express/Dockerfile)
+参照: <a href="https://github.com/y-ohgi/introduction-docker/blob/main/handson/express/Dockerfile" target="_blank" rel="noopener noreferrer">introduction-docker/handson/express</a>
 
 ## まとめ
 * 軽量なイメージを作るために、軽量で安全なベースイメージを使いましょう
@@ -163,5 +163,6 @@ $ docker buildx build \
 * 拡張構文を普段から利用する場合、 `docker buildx build` コマンドの採用を検討してみると良いでしょう。
 
 ## 参照
-* [Building best practices | Docker Docs](https://docs.docker.com/build/building/best-practices/)
+
+* <a href="https://docs.docker.com/build/building/best-practices/" target="_blank" rel="noopener noreferrer">Building best practices | Docker Docs</a>
   * 公式のベストプラクティスです。

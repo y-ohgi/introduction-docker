@@ -27,7 +27,7 @@ DockerイメージはDockerfileによって作成されるスナップショッ�
     Heroku社が提唱するモダンなサービスを実現するための12の方法論です。  
     コンテナの設計に迷ってしまった場合、まずはThe Twelve-Factor Appを参考に設計開発を行うことがオススメです。
 
-    [The Twelve-Factor App （日本語訳）](https://12factor.net/ja/)
+    <a href="https://12factor.net/ja/" target="_blank" rel="noopener noreferrer">The Twelve-Factor App （日本語訳）</a>
 
 ## ファイルシステム
 イメージはRead-Onlyで、その上にRead-Write可能なコンテナレイヤーが立ち上がるのがイメージとコンテナの仕組みです。  

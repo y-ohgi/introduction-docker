@@ -179,7 +179,7 @@ Python 3.7.2
 
 公式イメージで2.7がホストされていないのか確認してみましょう。  
 
-https://hub.docker.com/_/python
+<a href="https://hub.docker.com/_/python" target="_blank" rel="noopener noreferrer">https://hub.docker.com/_/python</a>
 
 ![python2](imgs/python2.png)
 
