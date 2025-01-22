@@ -110,7 +110,7 @@ services:
 +     - ./mysql:/var/lib/mysql:delegated
 ```
 
-- [Performance tuning for volume mounts (shared filesystems) | Docker Documentation](https://docs.docker.com/docker-for-mac/osxfs-caching/)
+- <a href="https://docs.docker.com/docker-for-mac/osxfs-caching/" target="_blank" rel="noopener noreferrer">Performance tuning for volume mounts (shared filesystems) | Docker Documentation</a>
 
 ---
 ## 標準入力を有効にする
@@ -226,4 +226,4 @@ services:
 +      name: api_network
 ```
 
-参照: [introduction-docker/handson/next](https://github.com/y-ohgi/introduction-docker/tree/main/handson/next)
+参照: <a href="https://github.com/y-ohgi/introduction-docker/tree/main/handson/next" target="_blank" rel="noopener noreferrer">introduction-docker/handson/next</a>

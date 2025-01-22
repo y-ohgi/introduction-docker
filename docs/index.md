@@ -13,24 +13,24 @@ Dockerの入門からプロダクションで活用するプラクティスに�
     - 26.1.3
 
 ## 必要な環境
-- [Docker Hub](https://hub.docker.com/) のアカウント
+- <a href="https://hub.docker.com/" target="_blank" rel="noopener noreferrer">Docker Hub</a> のアカウント
     - Docker公式レジストリ
-- [Play with Docker](https://labs.play-with-docker.com/)
+- <a href="https://labs.play-with-docker.com/" target="_blank" rel="noopener noreferrer">Play with Docker</a>
     - DockerをWeb上で動かせる環境
     - Play with Dockerを起動するのに前述のDockerHubアカウントが必要
     - Docker for Mac(Windows)の場合VMが間に挟まり挙動が異なるため、こちらを使用することを推奨
 
 ## 参考
-- [Docker Documentation | Docker Documentation](https://docs.docker.com/)
+- <a href="https://docs.docker.com/" target="_blank" rel="noopener noreferrer">Docker Documentation | Docker Documentation</a>
     - 公式ドキュメントです。
-- [Docker ドキュメント日本語化プロジェクト — Docker-docs-ja 24.0 ドキュメント](https://docs.docker.jp/index.html)
+- <a href="https://docs.docker.jp/index.html" target="_blank" rel="noopener noreferrer">Docker ドキュメント日本語化プロジェクト — Docker-docs-ja 24.0 ドキュメント</a>
     - 公式のドキュメントを有志で翻訳してくださっている日本語版です。
 
 ## 備考
 - このGitBookを管理しているリポジトリ
-    - [y-ohgi/introduction-docker: Docker入門勉強会用gitbook](https://github.com/y-ohgi/introduction-docker)
+    - <a href="https://github.com/y-ohgi/introduction-docker" target="_blank" rel="noopener noreferrer">y-ohgi/introduction-docker: Docker入門勉強会用gitbook</a>
 - 筆者
-    - [@_y_ohgi](https://twitter.com/_y_ohgi)
+    - <a href="https://twitter.com/_y_ohgi" target="_blank" rel="noopener noreferrer">@_y_ohgi</a>
 - [Privacy Policy](privacy-policy.md)
     - Google Analytics によって各章の滞在時間やセクション毎のニーズを把握することが目的です。
 

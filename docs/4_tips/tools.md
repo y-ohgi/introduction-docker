@@ -19,7 +19,7 @@ $ brew cask install kitematic
 ```
 
 windows  
-[Install Docker Toolbox on Windows | Docker Documentation](https://docs.docker.com/toolbox/toolbox_install_windows/)
+<a href="https://docs.docker.com/toolbox/toolbox_install_windows/" target="_blank" rel="noopener noreferrer">Install Docker Toolbox on Windows | Docker Documentation</a>
 
 ---
 ## `docker-clean`
@@ -45,7 +45,7 @@ $ brew install docker-clean
 ```
 
 windows  
-[ZZROTDesign/docker-clean: A script that cleans docker containers, images, volumes, and networks.](https://github.com/ZZROTDesign/docker-clean)
+<a href="https://github.com/ZZROTDesign/docker-clean" target="_blank" rel="noopener noreferrer">ZZROTDesign/docker-clean: A script that cleans docker containers, images, volumes, and networks.</a>
 
 ---
 ## dlayer

@@ -73,7 +73,7 @@ $ docker compose down
 ## compopse.yamlの設定
 compose.yaml を書く際、よく使用される要素を紹介します。
 
-ref: [Services top-level elements | Docker Docs](https://docs.docker.com/compose/compose-file/05-services/)
+ref: <a href="https://docs.docker.com/compose/compose-file/05-services/" target="_blank" rel="noopener noreferrer">Services top-level elements | Docker Docs</a>
 
 ### services
 ```yaml
@@ -183,7 +183,7 @@ services:
 コンテナ内に環境変数の定義を行うブロックです。  
 postgresやmysqlのようなイメージは特定の環境変数を宣言することでユーザー・パスワード・データベースの作成をサポートしています。
 
-参照: [Docker Hub](https://hub.docker.com/_/postgres)
+参照: <a href="https://hub.docker.com/_/postgres" target="_blank" rel="noopener noreferrer">Docker Hub</a>
 
 ### env_file
 ```yaml
@@ -277,7 +277,7 @@ compose機能はメジャーバージョンアップでv2となり、docker-comp
 
 ここでは簡単に、docker-composeとcomposeの差分について紹介します。
 
-参照: [Docker Compose: 新機能、変更点、今後の予定 | Docker](https://www.docker.com/ja-jp/blog/new-docker-compose-v2-and-v1-deprecation/)
+参照: <a href="https://www.docker.com/ja-jp/blog/new-docker-compose-v2-and-v1-deprecation/" target="_blank" rel="noopener noreferrer">Docker Compose: 新機能、変更点、今後の予定 | Docker</a>
 
 ### docker-composeコマンドの廃止
 一番の変更点かつ、唯一変更が必要な点です。

@@ -65,4 +65,4 @@ $ docker buildx build -t multi-builder --target builder .
 $ docker run -p 8080:8080 multi-builder ./main
 ```
 
-参照: [introduction-docker/handson/multistage-build](https://github.com/y-ohgi/introduction-docker/tree/main/handson/multistage-build)
+参照: <a href="https://github.com/y-ohgi/introduction-docker/tree/main/handson/multistage-build" target="_blank" rel="noopener noreferrer">introduction-docker/handson/multistage-build</a>

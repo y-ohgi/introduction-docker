@@ -91,16 +91,16 @@ compose.yaml
 docker社が提供するGitHub Actionが存在します。  
 CI/CDなどのworkflow内で実行することでCVEベースで脆弱性の検知を行なってくれます。  
 
-[docker/scout-action: Docker Scout GitHub Action](https://github.com/docker/scout-action)
+<a href="https://github.com/docker/scout-action" target="_blank" rel="noopener noreferrer">docker/scout-action: Docker Scout GitHub Action</a>
 
 ### レジストリ
 クラウドベンダーが提供するマネージドなイメージのレジストリにはイメージのスキャン機能がついていることが多いです。  
 セキュリティリスクを減らすために有効化をお勧めします。
 
 * AWSであればAmazon Elastic Container Registry
-  * [Amazon ECR でソフトウェアの脆弱性がないかイメージをスキャンする - Amazon ECR](https://docs.aws.amazon.com/ja_jp/AmazonECR/latest/userguide/image-scanning.html)
+  * <a href="https://docs.aws.amazon.com/ja_jp/AmazonECR/latest/userguide/image-scanning.html" target="_blank" rel="noopener noreferrer">Amazon ECR でソフトウェアの脆弱性がないかイメージをスキャンする - Amazon ECR</a>
 * Google CloudであればArtifact Artifact Registry
-  * [Container scanning overview  |  Documentation  |  Google Cloud](https://cloud.google.com/artifact-analysis/docs/container-scanning-overview)
+  * <a href="https://cloud.google.com/artifact-analysis/docs/container-scanning-overview" target="_blank" rel="noopener noreferrer">Container scanning overview  |  Documentation  |  Google Cloud</a>
 
 ### Dockerfile内
 別の章で紹介するマルチステージビルドを利用し、Dockerfile内でセキュリティツールを実行するアプローチもあります。
@@ -115,17 +115,17 @@ COPY --from=trivy /usr/local/bin/trivy /usr/local/bin/trivy
 RUN trivy filesystem --exit-code 1 --no-progress /
 ```
 
-[Trivy Home - Trivy](https://trivy.dev/)
+<a href="https://trivy.dev/" target="_blank" rel="noopener noreferrer">Trivy Home - Trivy</a>
 
 ### サイドカー
 Snykを使用し、実行中もサイドカーコンテナとしてリアルタイムで自動検知を行う選択肢もあります。
 
-[sidecar vulnerabilities | Snyk](https://security.snyk.io/package/npm/sidecar)
+<a href="https://security.snyk.io/package/npm/sidecar" target="_blank" rel="noopener noreferrer">sidecar vulnerabilities | Snyk</a>
 
 ### その他
 他にもどのようなツールがあるのか、CNCFでセキュリティプロダクトの一覧を見ることもお勧めです。
 
-[CNCF Landscape](https://landscape.cncf.io/?view-mode=card&classify=category&sort-by=name&sort-direction=asc#provisioning--security-compliance)
+<a href="https://landscape.cncf.io/?view-mode=card&classify=category&sort-by=name&sort-direction=asc#provisioning--security-compliance" target="_blank" rel="noopener noreferrer">CNCF Landscape</a>
 
 ## ファイルのマウントが必要な場合は最小限に。
 ホストのファイルをマウントする際は十分に注意してマウントを行いましょう。  

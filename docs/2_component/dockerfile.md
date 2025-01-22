@@ -6,7 +6,7 @@ description: Dockerfileの書き方やDSLを紹介します。
 ![dockerfile](imgs/dockerfile.png)
 
 ## Docker Image
-Docker Image が特定の環境のスナップショットということがわかりました。  
+Docker Image が特定の環境のスナップショットということがわかりました。
 次にDocker Image を自分で作成する方法を見ていきましょう。
 
 !!! このドキュメントについて
@@ -81,7 +81,7 @@ Docker公式が提供しているDockerHubへ先ほど作成した `hello` イ�
 
 ### 1. Docker Hubへログイン
 `docker login` コマンドでDocker Hub へログインします。  
-まだDockerHubの登録が済んでいない場合は [https://hub.docker.com/](https://hub.docker.com/) にてアカウントの登録をしましょう。
+まだDockerHubの登録が済んでいない場合は <a href="https://hub.docker.com/" target="_blank" rel="noopener noreferrer">https://hub.docker.com/</a> にてアカウントの登録をしましょう。
 
 ```
 $ docker login
@@ -124,7 +124,7 @@ latest: digest: sha256:99aab145aaa0bf0e51a2ab995e0051b1756e1016cbc7d82bcee663c79
 ### 4. Docker Hub の確認
 ![Docker Hub](imgs/docker-hub.png)
 
-[https://hub.docker.com/](https://hub.docker.com/) へアクセスし、 `<USER NAME>/hello` がアップロードされているか確認しましょう。
+<a href="https://hub.docker.com/" target="_blank" rel="noopener noreferrer">https://hub.docker.com/</a> へアクセスし、 `<USER NAME>/hello` がアップロードされているか確認しましょう。
 
 
 ### 5. Docker Hub にアップロードしたDocker Imageの実行
