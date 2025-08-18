@@ -1,6 +1,6 @@
 ---
-title: VMとDocker
-description: VMとDockerの違いについて紹介します。
+title: セキュリティ
+description: Dockerを扱う上で気をつけるべきセキュリティ面について紹介します。
 ---
 
 Dockerを使用する際にも他の技術と同様にセキュリティを考慮する必要があります。
